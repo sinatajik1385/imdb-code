@@ -1,0 +1,114 @@
+DROP TABLE IF EXISTS nameBasics;
+DROP TABLE IF EXISTS titleAkas;
+DROP TABLE IF EXISTS titleBasics;
+DROP TABLE IF EXISTS titleCrew;
+DROP TABLE IF EXISTS titleEpisode;
+DROP TABLE IF EXISTS titlePrincipals;
+DROP TABLE IF EXISTS titleRatings;
+
+CREATE TABLE nameBasics( 
+	index_pk int not null PRIMARY KEY,
+    nconst varchar not null, 
+    primaryName varchar not null, 
+    birthYear integer, 
+    deathYear varchar,
+    primaryProfession varchar, 
+    knownForTitles varchar not null
+); 
+
+CREATE TABLE titleAkas ( 
+    titleId VARCHAR PRIMARY KEY UNIQUE NOT NULL,  
+    ordering INTEGER NOT NULL,  
+    title VARCHAR NOT NULL,  
+    region VARCHAR, 
+    language VARCHAR, 
+    types VARCHAR, 
+    attributes INTEGER, 
+    isOriginalTitle INTEGER
+);
+
+CREATE TABLE titleBasics (
+	index_pk int not null PRIMARY KEY,
+    tconst varchar not null, 
+    titleType varchar not null, 
+    primaryTitle  varchar not null, 
+    originalTitle varchar not null, 
+    isAdult integer not null, 
+    startYear integer, 
+    endYear varchar, 
+    runtimeMinutes integer not null, 
+    genres varchar not null
+);
+
+
+CREATE TABLE titleCrew (
+	index_pk int NOT NULL PRIMARY KEY,
+    tconst VARCHAR NOT NULL,
+    directors VARCHAR NOT NULL,
+    writers VARCHAR NOT NULL
+);
+
+CREATE TABLE titleEpisode ( 
+    tconst VARCHAR NOT NULL PRIMARY KEY UNIQUE,  
+    parentTconst VARCHAR NOT NULL ,  
+    seasonNumber INTEGER NOT NULL,  
+    episodeNumber INTEGER NOT NULL 
+); 
+
+CREATE TABLE titlePrincipals (
+	index int NOT NULL PRIMARY KEY,
+    tconst VARCHAR NOT NULL,
+    ordering INTEGER NOT NULL,
+    nconst VARCHAR NOT NULL,
+    category VARCHAR NOT NULL,
+    job VARCHAR NOT NULL,
+    Characters VARCHAR NOT NULL
+);
+
+Create table titleRatings( 
+    tconst varchar primary key, 
+    averageRating float,
+    numVotes int
+);
+--------importing name basics-------
+copy nameBasics 
+FROM 'F:\taklif\cleaned_up\nameBasics.csv' 
+DELIMITER E',' 
+CSV HEADER;
+
+--------importing title Akas (needs to have the encoding changed)-------
+--copy titleAkas 
+--FROM 'F:\taklif\cleaned_up\titleAkas.csv' 
+--DELIMITER E',' 
+--CSV HEADER;
+--need to fix this
+--------importing ttitle Basics-------
+copy titleBasics 
+FROM 'F:\taklif\cleaned_up\titleBasics.csv' 
+DELIMITER E',' 
+CSV HEADER;
+
+--------importing title crews-------
+copy titlecrew 
+FROM 'F:\taklif\cleaned_up\titlecrew.csv' 
+DELIMITER E',' 
+CSV HEADER;
+
+--------importing title Episode-------
+copy titleEpisode 
+FROM 'F:\taklif\cleaned_up\titleEpisode.csv' 
+DELIMITER E',' 
+CSV HEADER;
+
+--------importing title Principals-------
+copy titlePrincipals 
+FROM 'F:\taklif\cleaned_up\titlePrincipals.csv' 
+DELIMITER E',' 
+CSV HEADER;
+
+--------importing title Principals-------
+copy titleRatings 
+FROM 'F:\taklif\cleaned_up\titleRatings.csv' 
+DELIMITER E',' 
+CSV HEADER;
+
