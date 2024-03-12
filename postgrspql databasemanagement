@@ -16,16 +16,18 @@ CREATE TABLE nameBasics(
     knownForTitles varchar not null
 ); 
 
-CREATE TABLE titleAkas ( 
-    titleId VARCHAR PRIMARY KEY UNIQUE NOT NULL,  
-    ordering INTEGER NOT NULL,  
-    title VARCHAR NOT NULL,  
+CREATE TABLE titleAkas (
+    index_pk int PRIMARY KEY UNIQUE NOT NULL,
+    titleId VARCHAR NOT NULL,
+    ordering INTEGER NOT NULL,
+    title VARCHAR NOT NULL,
     region VARCHAR, 
     language VARCHAR, 
     types VARCHAR, 
     attributes INTEGER, 
     isOriginalTitle INTEGER
 );
+
 
 CREATE TABLE titleBasics (
 	index_pk int not null PRIMARY KEY,
