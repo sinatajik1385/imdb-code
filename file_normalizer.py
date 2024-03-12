@@ -140,6 +140,7 @@ class from_tsv_to_sql ():
         df = pd.read_csv ("titlePrincipals.tsv", chunksize=500000 ,low_memory=False,sep= "\t")
         for chunk in df :       
             chunk.to_csv("F:/taklif/cleaned_up/titlePrincipals.csv",mode ="a",header="False",encoding='utf-8-sig' , index=True)
+from_tsv_to_sql.titleAkas_cleanup()
 """⠛⠋⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⣻⣩⣉⠉⠉
 ⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⢀⣀⣀⣀⣀⣀⣀⡀⠄⠄⠉⠉⠄⠄⠄
 ⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣠⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣤⠄⠄⠄⠄
@@ -158,9 +159,9 @@ while True :
         print (f"starting \n ----------------------------- ")
         from_tsv_to_sql.titleEpisode_cleanup()
         print (f"1 done \n ----------------------------- ")
-       from_tsv_to_sql.titleAkas_cleanup()
-        print (f"2 done \n ----------------------------- ")
-###  works now  :))))
+#        from_tsv_to_sql.titleAkas_cleanup()
+#        print (f"2 done \n ----------------------------- ")
+### doesnt work :(((
         from_tsv_to_sql.titleBasics_cleanup()
         print (f"3 done \n ----------------------------- ")
         from_tsv_to_sql.titleCrew_cleanup()
