@@ -24,7 +24,7 @@ CREATE TABLE titleAkas (
     region VARCHAR, 
     language VARCHAR, 
     types VARCHAR, 
-    attributes INTEGER, 
+    attributes VARCHAR, 
     isOriginalTitle INTEGER
 );
 
@@ -33,13 +33,13 @@ CREATE TABLE titleBasics (
 	index_pk int not null PRIMARY KEY,
     tconst varchar not null, 
     titleType varchar not null, 
-    primaryTitle  varchar not null, 
-    originalTitle varchar not null, 
-    isAdult integer not null, 
-    startYear integer, 
+    primaryTitle  varchar , 
+    originalTitle varchar , 
+    isAdult varchar , 
+    startYear varchar, 
     endYear varchar, 
-    runtimeMinutes integer not null, 
-    genres varchar not null
+    runtimeMinutes VARCHAR , 
+    genres varchar 
 );
 
 
@@ -72,6 +72,7 @@ Create table titleRatings(
     averageRating float,
     numVotes int
 );
+---------making the initial databses(1nf)---------
 --------importing name basics-------
 copy nameBasics 
 FROM 'F:\taklif\cleaned_up\nameBasics.csv' 
@@ -79,11 +80,10 @@ DELIMITER E','
 CSV HEADER;
 
 --------importing title Akas (needs to have the encoding changed)-------
---copy titleAkas 
---FROM 'F:\taklif\cleaned_up\titleAkas.csv' 
---DELIMITER E',' 
---CSV HEADER;
---need to fix this
+copy titleAkas 
+FROM 'F:\taklif\cleaned_up\titleAkas.csv' 
+DELIMITER E',' 
+CSV HEADER;
 --------importing ttitle Basics-------
 copy titleBasics 
 FROM 'F:\taklif\cleaned_up\titleBasics.csv' 
@@ -113,4 +113,5 @@ copy titleRatings
 FROM 'F:\taklif\cleaned_up\titleRatings.csv' 
 DELIMITER E',' 
 CSV HEADER;
-
+-----------------------------------------
+---------making the initial databses(2nf)---------
