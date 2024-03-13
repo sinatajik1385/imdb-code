@@ -407,7 +407,6 @@ class from_tsv_to_sql ():
                     tconst = i["tconst"]
                     nconst = i["nconst"]
                     category = i["category"]
-                    tconst = i["tconst"]
                     remade_dictionary = { "titlePrincipals_general_pk" : f"{titlePrincipals_general_pk}" ,"tconst" : f"{tconst}","nconst" : f"{nconst}","category" : f"{category}" }
                     dictionary_dict_titlePrincipals_general.append(remade_dictionary)
                     titlePrincipals_general_pk += 1
