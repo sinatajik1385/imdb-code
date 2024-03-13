@@ -5,7 +5,7 @@ class from_tsv_to_sql ():
 # this already is 2nf and the primary key is the tconst
     def titleEpisode_cleanup() :
         directory = f"{directo}/cleaned_up_nf2"
-        if os.path.isfile("titleEpisode.csv") == True :
+        if os.path.isfile(f"{directory}/titleEpisode.csv") == True :
             print ("file already exists")
         else:
             header = 1
@@ -26,7 +26,7 @@ class from_tsv_to_sql ():
 #  ttile akas will be turnd into akas_region_and_languages , akas_types , akas_attributes , akas_isOriginalTitle
     def titleAkas_region_and_languages_cleanup() :
         directory = f"{directo}/cleaned_up_nf2"
-        if os.path.isfile("titleAkas_region_and_languages.csv") == True :
+        if os.path.isfile(f"{directory}/titleAkas_region_and_languages.csv") == True :
             print ("file already exists")
         else :
             header = 1
@@ -44,7 +44,7 @@ class from_tsv_to_sql ():
                     language = i["language"]
                     remade_dictionary = { "akas_region_and_languages_pk" : f"{akas_region_and_languages_pk}" ,"titleId" : f"{titleId}" , "ordering" : f"{ordering}" , "title" : f"{title}" , "region" : f"{region}" , "language" : F"{language}" }
                     dictionary_dict_title_and_labguages.append(remade_dictionary)
-                    index_pk += 1 
+                    akas_region_and_languages_pk += 1 
                 if header == 1 :
                     header +=1 
                     final_dataframe = pd.DataFrame.from_dict(dictionary_dict_title_and_labguages)
@@ -55,7 +55,7 @@ class from_tsv_to_sql ():
 #  this part normalizes akas_types which includes the title id, types 
     def titleAkas_types_cleanup() :
         directory = f"{directo}/cleaned_up_nf2"
-        if os.path.isfile("akas_types.csv") == True :
+        if os.path.isfile(f"{directory}/akas_types.csv") == True :
             print ("file already exists")
         else :
             header = 1
@@ -84,7 +84,7 @@ class from_tsv_to_sql ():
 #  this part normalizes akas_attributes which includes the title id, attributes 
     def titleAkas_attributes_cleanup() :
         directory = f"{directo}/cleaned_up_nf2"
-        if os.path.isfile("akas_attributes.csv") == True :
+        if os.path.isfile(f"{directory}/akas_attributes.csv") == True :
             print ("file already exists")
         else :
             header = 1
@@ -111,7 +111,7 @@ class from_tsv_to_sql ():
 #  this part normalizes akas_isOriginalTitle which includes the title id, isOriginalTitle
     def titleAkas_isOriginalTitle_cleanup() :
         directory = f"{directo}/cleaned_up_nf2"
-        if os.path.isfile("akas_isOriginalTitle.csv") == True :
+        if os.path.isfile(f"{directory}/akas_isOriginalTitle.csv") == True :
             print ("file already exists")
         else :
             header = 1
@@ -142,7 +142,7 @@ class from_tsv_to_sql ():
 #  this part normalizes titleBasics which includes the tconst, titleType , primaryTitle, originalTitle , isAdult , startYear , endYear , runtimeMinutes , 
     def titleBasics_cleanup() :
         directory = f"{directo}/cleaned_up_nf2"
-        if os.path.isfile("titleBasics.csv") == True :
+        if os.path.isfile(f"{directory}/titleBasics.csv") == True :
             print ("file already exists")
         else :     
             df = pd.read_csv ("titleBasics.tsv", chunksize=15000 ,sep= "\t")
@@ -178,7 +178,7 @@ class from_tsv_to_sql ():
 #  this part normalizes titleBasics_genres which includes the titleBasics_genres_pk , tconst , genres
     def titleBasics_genres_cleanup() :
         directory = f"{directo}/cleaned_up_nf2"
-        if os.path.isfile("titleBasics_genres.csv") == True :
+        if os.path.isfile(f"{directory}/titleBasics_genres.csv") == True :
             print ("file already exists")
         else :     
             df = pd.read_csv ("titleBasics.tsv", chunksize=15000 ,sep= "\t")
@@ -210,7 +210,7 @@ class from_tsv_to_sql ():
 #  this part normalizes titleCrew_directors which includes titleCrew_directors_pk , tconst , directors 
     def titleCrew_directors_cleanup() :
         directory = f"{directo}/cleaned_up_nf2"
-        if os.path.isfile("titleCrew_directors.csv") == True :
+        if os.path.isfile(f"{directory}/titleCrew_directors.csv") == True :
             print ("file already exists")
         else :
             titleCrew_directors_pk = 1
@@ -241,7 +241,7 @@ class from_tsv_to_sql ():
 #  this part normalizes titleCrew_writers which includes the titleCrew_writers_pk , tconst , genres
     def titleCrew_writers_cleanup() :
         directory = f"{directo}/cleaned_up_nf2"
-        if os.path.isfile("titleCrew_writers.csv") == True :
+        if os.path.isfile(f"{directory}/titleCrew_writers.csv") == True :
             print ("file already exists")
         else :
             titleCrew_writers_pk = 1
@@ -272,7 +272,7 @@ class from_tsv_to_sql ():
 # this database does not need furtehr normalization
     def titleRatings_cleanup() :
         directory = f"{directo}/cleaned_up_nf2"
-        if os.path.isfile("titleRatings.csv") == True :
+        if os.path.isfile(f"{directory}/titleRatings.csv") == True :
             print ("file already exists")
         else :
             header = 1 
@@ -299,7 +299,7 @@ class from_tsv_to_sql ():
 #  this part normalizes nameBasics_general which includes the nconst , primaryName , birthYear , deathYear , 
     def nameBasics_general_cleanup() :
         directory = f"{directo}/cleaned_up_nf2"
-        if os.path.isfile("nameBasics_general.csv") == True :
+        if os.path.isfile(f"{directory}/nameBasics_general.csv") == True :
             print ("file already exists")
         else :
             df = pd.read_csv ("nameBasics.tsv", chunksize=15000 ,sep= "\t")
@@ -331,7 +331,7 @@ class from_tsv_to_sql ():
 #  this part normalizes nameBasics_primaryProfession which includes the nameBasics_primaryProfession_pk , nconst , primaryProfession
     def nameBasics_primaryProfession_cleanup() :
         directory = f"{directo}/cleaned_up_nf2"
-        if os.path.isfile("F:/taklif/cleaned_up/nameBasics_primaryProfession.csv") == True :
+        if os.path.isfile(f"{directory}/nameBasics_primaryProfession.csv") == True :
             print ("file already exists")
         else :
             df = pd.read_csv ("nameBasics.tsv", chunksize=15000 ,sep= "\t")
@@ -356,14 +356,14 @@ class from_tsv_to_sql ():
                 if header == 1 :
                     header += 1
                     final_dataframe = pd.DataFrame.from_dict(dictionary_dict_actornames)
-                    final_dataframe.to_csv("F:/taklif/cleaned_up/nameBasics_primaryProfession.csv",mode="a",header=True,encoding='utf-8-sig',index=False)
+                    final_dataframe.to_csv(f"{directory}/nameBasics_primaryProfession.csv",mode="a",header=True,encoding='utf-8-sig',index=False)
                 else :
                     final_dataframe = pd.DataFrame.from_dict(dictionary_dict_actornames)
-                    final_dataframe.to_csv("F:/taklif/cleaned_up/nameBasics_primaryProfession.csv",mode="a",header=False,encoding='utf-8-sig',index=False)  
+                    final_dataframe.to_csv(f"{directory}/nameBasics_primaryProfession.csv",mode="a",header=False,encoding='utf-8-sig',index=False)  
 #  this part normalizes nameBasics_knownForTitles which includes the nameBasics_knownForTitles_pk , nconst , knownForTitles
     def nameBasics_knownForTitles_cleanup() :
         directory = f"{directo}/cleaned_up_nf2"
-        if os.path.isfile("F:/taklif/cleaned_up/nameBasics_knownForTitles.csv") == True :
+        if os.path.isfile(f"{directory}/nameBasics_knownForTitles.csv") == True :
             print ("file already exists")
         else :
             df = pd.read_csv ("nameBasics.tsv", chunksize=15000 ,sep= "\t")
@@ -388,15 +388,15 @@ class from_tsv_to_sql ():
                 if header == 1 :
                     header += 1
                     final_dataframe = pd.DataFrame.from_dict(dictionary_dict_actornames)
-                    final_dataframe.to_csv("F:/taklif/cleaned_up/nameBasics_knownForTitles.csv",mode="a",header=True,encoding='utf-8-sig',index=False)
+                    final_dataframe.to_csv(f"{directory}/nameBasics_knownForTitles.csv",mode="a",header=True,encoding='utf-8-sig',index=False)
                 else :
                     final_dataframe = pd.DataFrame.from_dict(dictionary_dict_actornames)
-                    final_dataframe.to_csv("F:/taklif/cleaned_up/nameBasics_knownForTitles.csv",mode="a",header=False,encoding='utf-8-sig',index=False)  
+                    final_dataframe.to_csv(f"{directory}/nameBasics_knownForTitles.csv",mode="a",header=False,encoding='utf-8-sig',index=False)  
 #  titlePrincipals will be turnd into titlePrincipals_general , titlePrincipals_job , titlePrincipals_characters
 #  this part normalizes titlePrincipals_general which includes the titlePrincipals_general_pk , tconst , nconst , category , job ,characters
     def titlePrincipals_general_cleanup() :
         directory = f"{directo}/cleaned_up_nf2"
-        if os.path.isfile("titlePrincipals_general.csv") == True :
+        if os.path.isfile(f"{directory}/titlePrincipals_general.csv") == True :
             print ("file already exists")
         else :
             header = 1
@@ -426,7 +426,7 @@ class from_tsv_to_sql ():
 #  this part normalizes titlePrincipals_job which includes the titlePrincipals_job_pk , tconst , nconst ,  job 
     def titlePrincipals_job_cleanup() :
         directory = f"{directo}/cleaned_up_nf2"
-        if os.path.isfile("titlePrincipals_job.csv") == True :
+        if os.path.isfile(f"{directory}/titlePrincipals_job.csv") == True :
             print ("file already exists")
         else :
             header = 1
@@ -455,7 +455,7 @@ class from_tsv_to_sql ():
 #  this part normalizes titlePrincipals_characters which includes the titlePrincipals_characters_pk , tconst , nconst ,  characters 
     def titlePrincipals_characters_cleanup() :
         directory = f"{directo}/cleaned_up_nf2"
-        if os.path.isfile("titlePrincipals_characters.csv") == True :
+        if os.path.isfile(f"{directory}/titlePrincipals_characters.csv") == True :
             print ("file already exists")
         else :
             header = 1
@@ -493,12 +493,15 @@ class from_tsv_to_sql ():
 ⣿⣿⣿⡼⣿⠷⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⢀⣀⣠⣿⣟⢷⢾⣊⠄⠄
 ⠉⠉⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⣈⣉⣭⣽⡿⠟⢉⢴⣿⡇⣺⣿⣷
 ⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠁⠐⢊⣡⣴⣾⣥"""
-while True : 
-    menu = input(f"----------\n1.cleanup the data\n-----------\nplease enter : ")
-    if menu == "1" :
-        directo = os.getcwd()
-        os.mkdir(f"{directo}/cleaned_up_nf2")
-        if os.path.isdir("cleaned_up_nf2") == True :
+directo = os.getcwd()
+try :
+    os.mkdir(f"{directo}/cleaned_up_nf2")
+except :
+    pass 
+finally :
+    while True : 
+        menu = input(f"----------\n1.cleanup the data\n-----------\nplease enter : ")
+        if menu == "1" :
             from_tsv_to_sql.titleEpisode_cleanup()
 
             print (f"1st database is done \n ----------------------------- ")
@@ -535,43 +538,6 @@ while True :
             from_tsv_to_sql.titlePrincipals_job_cleanup()
 
             print (f"7th database is done \n ----------------------------- ")
-        else:
-            from_tsv_to_sql.titleEpisode_cleanup()
-
-            print (f"1st database is done \n ----------------------------- ")
-
-            from_tsv_to_sql.titleAkas_types_cleanup()
-            from_tsv_to_sql.titleAkas_region_and_languages_cleanup()
-            from_tsv_to_sql.titleAkas_attributes_cleanup()
-            from_tsv_to_sql.titleAkas_isOriginalTitle_cleanup()
-
-            print (f"2nd database is done \n ----------------------------- ")
-
-            from_tsv_to_sql.titleBasics_cleanup()
-            from_tsv_to_sql.titleBasics_genres_cleanup()
-
-            print (f"3rd database is done \n ----------------------------- ")
-
-            from_tsv_to_sql.titleCrew_directors_cleanup()
-            from_tsv_to_sql.titleCrew_writers_cleanup()
-
-            print (f"4th database is done \n ----------------------------- ")
-
-            from_tsv_to_sql.titleRatings_cleanup()
-
-            print (f"5th database is done \n ----------------------------- ")
-
-            from_tsv_to_sql.nameBasics_general_cleanup()
-            from_tsv_to_sql.nameBasics_knownForTitles_cleanup()
-            from_tsv_to_sql.nameBasics_primaryProfession_cleanup()
-
-            print (f"6th database is done \n ----------------------------- ")
-            
-            from_tsv_to_sql.titlePrincipals_general_cleanup()
-            from_tsv_to_sql.titlePrincipals_characters_cleanup()
-            from_tsv_to_sql.titlePrincipals_job_cleanup()
-
-            print (f"7th database is done \n ----------------------------- ")
-    else :
-        print ("option not available ")
+        else :
+            print ("option not available ")
 
