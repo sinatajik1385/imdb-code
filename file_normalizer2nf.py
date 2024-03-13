@@ -4,6 +4,7 @@ import os
 class from_tsv_to_sql ():
 # this already is 2nf and the primary key is the tconst
     def titleEpisode_cleanup() :
+        directory = f"{directo}/cleaned_up_nf2"
         if os.path.isfile("titleEpisode.csv") == True :
             print ("file already exists")
         else:
@@ -24,6 +25,7 @@ class from_tsv_to_sql ():
                     final_dataframe.to_csv(f"{directory}/titleEpisode.csv",mode="a",header=False,encoding='utf-8-sig' , index=False)
 #  ttile akas will be turnd into akas_region_and_languages , akas_types , akas_attributes , akas_isOriginalTitle
     def titleAkas_region_and_languages_cleanup() :
+        directory = f"{directo}/cleaned_up_nf2"
         if os.path.isfile("titleAkas_region_and_languages.csv") == True :
             print ("file already exists")
         else :
@@ -52,6 +54,7 @@ class from_tsv_to_sql ():
                     final_dataframe.to_csv(f"{directory}/Akas_region_and_languages.csv",mode="a",header=False,encoding='utf-8-sig' , index=False)
 #  this part normalizes akas_types which includes the title id, types 
     def titleAkas_types_cleanup() :
+        directory = f"{directo}/cleaned_up_nf2"
         if os.path.isfile("akas_types.csv") == True :
             print ("file already exists")
         else :
@@ -80,6 +83,7 @@ class from_tsv_to_sql ():
                     final_dataframe.to_csv(f"{directory}/akas_types.csv",mode="a",header=False,encoding='utf-8-sig' , index=False)
 #  this part normalizes akas_attributes which includes the title id, attributes 
     def titleAkas_attributes_cleanup() :
+        directory = f"{directo}/cleaned_up_nf2"
         if os.path.isfile("akas_attributes.csv") == True :
             print ("file already exists")
         else :
@@ -106,6 +110,7 @@ class from_tsv_to_sql ():
                     final_dataframe.to_csv(f"{directory}/akas_attributes.csv",mode="a",header=False,encoding='utf-8-sig' , index=False)
 #  this part normalizes akas_isOriginalTitle which includes the title id, isOriginalTitle
     def titleAkas_isOriginalTitle_cleanup() :
+        directory = f"{directo}/cleaned_up_nf2"
         if os.path.isfile("akas_isOriginalTitle.csv") == True :
             print ("file already exists")
         else :
@@ -136,6 +141,7 @@ class from_tsv_to_sql ():
 #  ttile akas will be turnd into titleBasics , titleBasics_genres
 #  this part normalizes titleBasics which includes the tconst, titleType , primaryTitle, originalTitle , isAdult , startYear , endYear , runtimeMinutes , 
     def titleBasics_cleanup() :
+        directory = f"{directo}/cleaned_up_nf2"
         if os.path.isfile("titleBasics.csv") == True :
             print ("file already exists")
         else :     
@@ -171,6 +177,7 @@ class from_tsv_to_sql ():
                     final_dataframe.to_csv(f"{directory}/titleBasics.csv",mode="a",header=False,encoding='utf-8-sig' , index=False)
 #  this part normalizes titleBasics_genres which includes the titleBasics_genres_pk , tconst , genres
     def titleBasics_genres_cleanup() :
+        directory = f"{directo}/cleaned_up_nf2"
         if os.path.isfile("titleBasics_genres.csv") == True :
             print ("file already exists")
         else :     
@@ -202,6 +209,7 @@ class from_tsv_to_sql ():
 #  ttile crew will be turnd into titleCrew_directors , titleCrew_writers
 #  this part normalizes titleCrew_directors which includes titleCrew_directors_pk , tconst , directors 
     def titleCrew_directors_cleanup() :
+        directory = f"{directo}/cleaned_up_nf2"
         if os.path.isfile("titleCrew_directors.csv") == True :
             print ("file already exists")
         else :
@@ -232,6 +240,7 @@ class from_tsv_to_sql ():
                     final_dataframe.to_csv(f"{directory}/titleCrew_directors.csv",mode="a",header=False,encoding='utf-8-sig' , index=False)
 #  this part normalizes titleCrew_writers which includes the titleCrew_writers_pk , tconst , genres
     def titleCrew_writers_cleanup() :
+        directory = f"{directo}/cleaned_up_nf2"
         if os.path.isfile("titleCrew_writers.csv") == True :
             print ("file already exists")
         else :
@@ -262,6 +271,7 @@ class from_tsv_to_sql ():
                     final_dataframe.to_csv(f"{directory}/titleCrew_writers.csv",mode="a",header=False,encoding='utf-8-sig' , index=False)
 # this database does not need furtehr normalization
     def titleRatings_cleanup() :
+        directory = f"{directo}/cleaned_up_nf2"
         if os.path.isfile("titleRatings.csv") == True :
             print ("file already exists")
         else :
@@ -288,6 +298,7 @@ class from_tsv_to_sql ():
 #  name basics will be turnd into nameBasics_general , nameBasics_primaryProfession , nameBasics_knownForTitles
 #  this part normalizes nameBasics_general which includes the nconst , primaryName , birthYear , deathYear , 
     def nameBasics_general_cleanup() :
+        directory = f"{directo}/cleaned_up_nf2"
         if os.path.isfile("nameBasics_general.csv") == True :
             print ("file already exists")
         else :
@@ -319,6 +330,7 @@ class from_tsv_to_sql ():
                     final_dataframe.to_csv(f"{directory}/nameBasics_general.csv",mode="a",header=False,encoding='utf-8-sig',index=False)
 #  this part normalizes nameBasics_primaryProfession which includes the nameBasics_primaryProfession_pk , nconst , primaryProfession
     def nameBasics_primaryProfession_cleanup() :
+        directory = f"{directo}/cleaned_up_nf2"
         if os.path.isfile("F:/taklif/cleaned_up/nameBasics_primaryProfession.csv") == True :
             print ("file already exists")
         else :
@@ -350,6 +362,7 @@ class from_tsv_to_sql ():
                     final_dataframe.to_csv("F:/taklif/cleaned_up/nameBasics_primaryProfession.csv",mode="a",header=False,encoding='utf-8-sig',index=False)  
 #  this part normalizes nameBasics_knownForTitles which includes the nameBasics_knownForTitles_pk , nconst , knownForTitles
     def nameBasics_knownForTitles_cleanup() :
+        directory = f"{directo}/cleaned_up_nf2"
         if os.path.isfile("F:/taklif/cleaned_up/nameBasics_knownForTitles.csv") == True :
             print ("file already exists")
         else :
@@ -382,6 +395,7 @@ class from_tsv_to_sql ():
 #  titlePrincipals will be turnd into titlePrincipals_general , titlePrincipals_job , titlePrincipals_characters
 #  this part normalizes titlePrincipals_general which includes the titlePrincipals_general_pk , tconst , nconst , category , job ,characters
     def titlePrincipals_general_cleanup() :
+        directory = f"{directo}/cleaned_up_nf2"
         if os.path.isfile("titlePrincipals_general.csv") == True :
             print ("file already exists")
         else :
@@ -411,6 +425,7 @@ class from_tsv_to_sql ():
                     chunks.to_csv(f"{directory}/titlePrincipals_general.csv",mode ="a",header=False,encoding='utf-8-sig' , index=True)
 #  this part normalizes titlePrincipals_job which includes the titlePrincipals_job_pk , tconst , nconst ,  job 
     def titlePrincipals_job_cleanup() :
+        directory = f"{directo}/cleaned_up_nf2"
         if os.path.isfile("titlePrincipals_job.csv") == True :
             print ("file already exists")
         else :
@@ -439,6 +454,7 @@ class from_tsv_to_sql ():
                     chunks.to_csv(f"{directory}/titlePrincipals_job.csv",mode ="a",header=False,encoding='utf-8-sig' , index=True)
 #  this part normalizes titlePrincipals_characters which includes the titlePrincipals_characters_pk , tconst , nconst ,  characters 
     def titlePrincipals_characters_cleanup() :
+        directory = f"{directo}/cleaned_up_nf2"
         if os.path.isfile("titlePrincipals_characters.csv") == True :
             print ("file already exists")
         else :
@@ -480,9 +496,9 @@ class from_tsv_to_sql ():
 while True : 
     menu = input(f"----------\n1.cleanup the data\n-----------\nplease enter : ")
     if menu == "1" :
-        directory = os.getcwd()
+        directo = os.getcwd()
+        os.mkdir(f"{directo}/cleaned_up_nf2")
         if os.path.isdir("cleaned_up_nf2") == True :
-            os.mkdir("cleaned_up_nf2")
             from_tsv_to_sql.titleEpisode_cleanup()
 
             print (f"1st database is done \n ----------------------------- ")
@@ -556,7 +572,6 @@ while True :
             from_tsv_to_sql.titlePrincipals_job_cleanup()
 
             print (f"7th database is done \n ----------------------------- ")
-
     else :
         print ("option not available ")
 
