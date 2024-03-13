@@ -24,9 +24,10 @@ class from_tsv_to_sql ():
                     final_dataframe = pd.DataFrame.from_dict(dictionary_seasonnumber_episodenumber)
                     final_dataframe.to_csv(f"{directory}/titleEpisode.csv",mode="a",header=False,encoding='utf-8-sig' , index=False)
 #  ttile akas will be turnd into akas_region_and_languages , akas_types , akas_attributes , akas_isOriginalTitle
+#  this part normalizes akas_types which includes the title id, ordering ,  title , region , language 
     def titleAkas_region_and_languages_cleanup() :
         directory = f"{directo}/cleaned_up_nf2"
-        if os.path.isfile(f"{directory}/titleAkas_region_and_languages.csv") == True :
+        if os.path.isfile(f"{directory}/Akas_region_and_languages.csv") == True :
             print ("file already exists")
         else :
             header = 1
@@ -65,10 +66,8 @@ class from_tsv_to_sql ():
                 chunks.drop_duplicates()
                 data_dict_title_and_labguages = chunks.to_dict(orient= "records")
                 for i in data_dict_title_and_labguages :
-                    if i["region"] == "\\N" :
+                    if i["types"] == "\\N" :
                             pass
-                    elif i["language"] == "\\N" :
-                        pass
                     else :
                         titleId =  i["titleId"]
                         types = i["types"]
@@ -139,7 +138,7 @@ class from_tsv_to_sql ():
                     final_dataframe = pd.DataFrame.from_dict(dictionary_dict_title_and_labguages)
                     final_dataframe.to_csv(f"{directory}/akas_isOriginalTitle.csv",mode="a",header=False,encoding='utf-8-sig' , index=False)
 #  ttile akas will be turnd into titleBasics , titleBasics_genres
-#  this part normalizes titleBasics which includes the tconst, titleType , primaryTitle, originalTitle , isAdult , startYear , endYear , runtimeMinutes , 
+#  this part normalizes titleBasics which includes the tconst, titleType , primaryTitle, originalTitle , isAdult , startYear , endYear , runtimeMinutes 
     def titleBasics_cleanup() :
         directory = f"{directo}/cleaned_up_nf2"
         if os.path.isfile(f"{directory}/titleBasics.csv") == True :
@@ -152,22 +151,19 @@ class from_tsv_to_sql ():
                 chunks.drop_duplicates()
                 data_dict_isadult_runtime = chunks.to_dict(orient= "records")
                 for i in data_dict_isadult_runtime :
-                    if i["runtimeMinutes"] == "\\N" :
-                        pass
+                    tconst = i["tconst"]
+                    titleType = i["titleType"]
+                    primaryTitle = i["primaryTitle"]
+                    originalTitle = i["originalTitle"]
+                    if i["isAdult"] == 0 :
+                        isAdult = "it isnt adult"
                     else :
-                        tconst = i["tconst"]
-                        titleType = i["titleType"]
-                        primaryTitle = i["primaryTitle"]
-                        originalTitle = i["originalTitle"]
-                        if i["isAdult"] == 0 :
-                            isAdult = "it isnt adult"
-                        else :
-                                isAdult = "it is adult"
-                        startYear = i["startYear"]
-                        endYear = i["endYear"]
-                        runtimeMinutes = i["runtimeMinutes"]
-                        remade_dictionary = {"tconst" : f"{tconst}" , "titleType" : f"{titleType}" , "primaryTitle" : f"{primaryTitle}" , "originalTitle" : f"{originalTitle}" , "isAdult" : F"{isAdult}" , "startYear" : f"{startYear}" , "endYear" : f"{endYear}" , "runtimeMinutes" : f"{runtimeMinutes}"}
-                        dictionary_dict_isadult_runtime.append(remade_dictionary)
+                            isAdult = "it is adult"
+                    startYear = i["startYear"]
+                    endYear = i["endYear"]
+                    runtimeMinutes = i["runtimeMinutes"]
+                    remade_dictionary = {"tconst" : f"{tconst}" , "titleType" : f"{titleType}" , "primaryTitle" : f"{primaryTitle}" , "originalTitle" : f"{originalTitle}" , "isAdult" : F"{isAdult}" , "startYear" : f"{startYear}" , "endYear" : f"{endYear}" , "runtimeMinutes" : f"{runtimeMinutes}"}
+                    dictionary_dict_isadult_runtime.append(remade_dictionary)
                 if header == 1 :
                     header += 1                     
                     final_dataframe = pd.DataFrame.from_dict(dictionary_dict_isadult_runtime)
@@ -407,17 +403,14 @@ class from_tsv_to_sql ():
                 chunks.drop_duplicates()
                 data_dict_titlePrincipals_general = chunks.to_dict(orient= "records")
                 for i in data_dict_titlePrincipals_general :
-                    if i["knownForTitles"] == "\\N" :
-                        pass
-                    else :
-                        remade_dictionary = {}                        
-                        tconst = i["tconst"]
-                        nconst = i["nconst"]
-                        category = i["category"]
-                        tconst = i["tconst"]
-                        remade_dictionary = { "titlePrincipals_general_pk" : f"{titlePrincipals_general_pk}" ,"tconst" : f"{tconst}","nconst" : f"{nconst}","category" : f"{category}" }
-                        dictionary_dict_titlePrincipals_general.append(remade_dictionary)
-                        titlePrincipals_general_pk += 1
+                    remade_dictionary = {}                        
+                    tconst = i["tconst"]
+                    nconst = i["nconst"]
+                    category = i["category"]
+                    tconst = i["tconst"]
+                    remade_dictionary = { "titlePrincipals_general_pk" : f"{titlePrincipals_general_pk}" ,"tconst" : f"{tconst}","nconst" : f"{nconst}","category" : f"{category}" }
+                    dictionary_dict_titlePrincipals_general.append(remade_dictionary)
+                    titlePrincipals_general_pk += 1
                 if header == 1 :
                     header += 1      
                     chunks.to_csv(f"{directory}/titlePrincipals_general.csv",mode ="a",header=True,encoding='utf-8-sig' , index=True)
@@ -503,39 +496,55 @@ finally :
         menu = input(f"----------\n1.cleanup the data\n-----------\nplease enter : ")
         if menu == "1" :
             from_tsv_to_sql.titleEpisode_cleanup()
+            print (f"titleEpisode is done \n ----------------------------- ")
 
             print (f"1st database is done \n ----------------------------- ")
 
             from_tsv_to_sql.titleAkas_types_cleanup()
+            print (f"titleAkas_types is done \n ----------------------------- ")
             from_tsv_to_sql.titleAkas_region_and_languages_cleanup()
+            print (f"titleAkas_region_and_languages is done \n ----------------------------- ")
             from_tsv_to_sql.titleAkas_attributes_cleanup()
+            print (f"titleAkas_attributes is done \n ----------------------------- ")
             from_tsv_to_sql.titleAkas_isOriginalTitle_cleanup()
+            print (f"titleAkas_isOriginalTitle is done \n ----------------------------- ")
 
             print (f"2nd database is done \n ----------------------------- ")
 
             from_tsv_to_sql.titleBasics_cleanup()
+            print (f"titleBasics is done \n ----------------------------- ")
             from_tsv_to_sql.titleBasics_genres_cleanup()
+            print (f"titleBasics_genres is done \n ----------------------------- ")
 
             print (f"3rd database is done \n ----------------------------- ")
 
             from_tsv_to_sql.titleCrew_directors_cleanup()
+            print (f"titleCrew_directors is done \n ----------------------------- ")
             from_tsv_to_sql.titleCrew_writers_cleanup()
+            print (f"titleCrew_writers is done \n ----------------------------- ")
 
             print (f"4th database is done \n ----------------------------- ")
 
             from_tsv_to_sql.titleRatings_cleanup()
+            print (f"titleRatings is done \n ----------------------------- ")
 
             print (f"5th database is done \n ----------------------------- ")
 
             from_tsv_to_sql.nameBasics_general_cleanup()
+            print (f"nameBasics_general is done \n ----------------------------- ")
             from_tsv_to_sql.nameBasics_knownForTitles_cleanup()
+            print (f"nameBasics_knownForTitles is done \n ----------------------------- ")
             from_tsv_to_sql.nameBasics_primaryProfession_cleanup()
+            print (f"nameBasics_primaryProfession is done \n ----------------------------- ")
 
             print (f"6th database is done \n ----------------------------- ")
             
             from_tsv_to_sql.titlePrincipals_general_cleanup()
-            from_tsv_to_sql.titlePrincipals_characters_cleanup()
+            print (f"titlePrincipals_general is done \n ----------------------------- ")
+            from_tsv_to_sql.titlePrincipals_general_cleanup()
+            print (f"titlePrincipals_general is done \n ----------------------------- ")
             from_tsv_to_sql.titlePrincipals_job_cleanup()
+            print (f"titlePrincipals_job is done \n ----------------------------- ")
 
             print (f"7th database is done \n ----------------------------- ")
         else :
