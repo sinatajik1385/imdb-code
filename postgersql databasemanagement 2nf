@@ -1,0 +1,119 @@
+-- titleEpisodes (tconst,parenttconst,seasonnumber,episodenumber)
+-- titleAkas_region_and_languages (akas_region_and_languages_pk,titleId,title,region,language)
+-- titleAkas_types (titleId,types_)
+-- titleAkas_attributes (titleId,attributes)
+-- titleAkas_isOriginalTitle(titleId,isOriginalTitle)
+-- titleBasics_cleanup (tconst,titleType,primaryTitle,originalTitle,isAdult,startYear,endYear,runtimeMinutes)
+-- titleBasics_genres (titleBasics_genres_pk,tconst,genres)
+-- titleCrew_directors (titleCrew_directors_pk,tconst,directors)
+-- titleCrew_writers (titleCrew_writers_pk,tconst,writers)
+-- titleRatings (tconst,averageRating,numVotes)
+-- nameBasics_general (nconst,primaryName,birthYear,deathYear)
+-- nameBasics_primaryProfession (nameBasics_primaryProfession_pk,nconst,primaryProfession)
+-- nameBasics_knownForTitles (nameBasics_knownForTitles_pk,nconst,knownForTitles)
+-- titlePrincipals_general (titlePrincipals_general_pk,tconst,nconst,category)
+-- titlePrincipals_job_cleanup (titlePrincipals_job_pk,tconst,nconst,job)
+-- titlePrincipals_characters (titlePrincipals_characters_pk,tconst,nconst,characters_)
+
+CREATE TABLE titleEpisode ( 
+    tconst VARCHAR NOT NULL PRIMARY KEY UNIQUE,  
+    parentTconst VARCHAR NOT NULL ,  
+    seasonNumber INTEGER NOT NULL,  
+    episodeNumber INTEGER NOT NULL 
+); 
+
+CREATE TABLE titleAkas_region_and_languages (
+	akas_region_and_languages_pk VARCHAR NOT NULL PRIMARY KEY UNIQUE,
+	titleId VARCHAR NOT NULL,
+	title VARCHAR,
+	region VARCHAR, 
+	language VARCHAR
+);
+
+CREATE TABLE titleAkas_types (
+	titleId NOT NULL PRIMARY KEY UNIQUE,
+	types_ NOT NULL 
+);
+
+CREATE TABLE titleAkas_attributes(
+	titleId VARCHAR NOT NULL PRIMARY KEY UNIQUE,
+	attributes VARCHAR NOT NULL
+);
+
+CREATE TABLE titleAkas_isOriginalTitle(
+	titleId VARCHAR NOT NULL PRIMARY KEY UNIQUE,
+	isOriginalTitle VARCHAR NOT NULL
+);
+
+CREATE TABLE titleBasics(
+    tconst varchar not null PRIMARY KEY, 
+    titleType varchar not null, 
+    primaryTitle  varchar , 
+    originalTitle varchar , 
+    isAdult varchar , 
+    startYear varchar, 
+    endYear varchar, 
+    runtimeMinutes VARCHAR , 
+);
+
+CREATE TABLE titleBasics_genres(
+	titleBasics_genres_pk INT NOT NULL PRIMARY KEY UNIQUE,
+	tconst VARCHAR NOT NULL,
+	genres VARCHAR NOT NULL
+);
+
+CREATE TABLE titleCrew_directors (
+	titleCrew_directors_pk INT NOT NULL PRIMARY KEY UNIQUE
+	tconst VARCHAR NOT NULL,
+	directors VARCHAR NOT NULL
+);
+
+CREATE TABLE titleCrew_writers(
+	titleCrew_writers_pk INT NOT NULL PRIMARY KEY UNIQUE,
+	tconst VARCHAR NOT NULL,
+	writers VARCHAR NOT NULL
+);
+
+Create table titleRatings( 
+    tconst varchar PRIMARY KEY, 
+    averageRating float NOT NULL,
+    numVotes int NOT NULL
+);
+
+CREATE TABLE nameBasics_general(
+	nconst VARCHAR NOT NULL PRIMARY KEY UNIQUE,
+	primaryName VARCHAR NOT NULL,
+	birthYear INT NOT NULL,
+	deathYear VARCHAR
+);
+
+CREATE TABLE nameBasics_primaryProfession(
+	nameBasics_primaryProfession_pk INT NOT NULL PRIMARY KEY UNIQUE,
+	nconst VARCHAR NOT NULL,
+	primaryProfession VARCHAR
+);
+
+CREATE TABLE nameBasics_knownForTitles(
+	nameBasics_knownForTitles_pk INT NOT NULL PRIMARY KEY UNIQUE,
+	nconst VARCHAR NOT NULL,
+	knownForTitles VARCHAR
+);
+
+CREATE TABLE titlePrincipals_general(
+	titlePrincipals_general_pk INT NOT NULL PRIMARY KEY UNIQUE,
+	tconst VARCHAR NOT NULL,
+	nconst VARCHAR NOT NULL,
+	category VARCHAR
+);
+
+CREATE TABLE titlePrincipals_job(
+	titlePrincipals_job_pk INT NOT NULL PRIMARY KEY UNIQUE,
+	tconst VARCHAR NOT NULL,
+	nconst VARCHAR
+);
+
+CREATE TABLE titlePrincipals_characters(
+	titlePrincipals_characters_pk INT NOT NULL PRIMARY KEY UNIQUE,
+	tconst VARCHAR NOT NULL,
+	nconst VARCHAR NOT NULL
+);
