@@ -39,11 +39,10 @@ class from_tsv_to_sql ():
                 data_dict_title_and_labguages = chunks.to_dict(orient= "records")
                 for i in data_dict_title_and_labguages :
                     titleId =  i["titleId"]
-                    ordering = i["ordering"]
                     title = i["title"]
                     region = i["region"]
                     language = i["language"]
-                    remade_dictionary = { "akas_region_and_languages_pk" : f"{akas_region_and_languages_pk}" ,"titleId" : f"{titleId}" , "ordering" : f"{ordering}" , "title" : f"{title}" , "region" : f"{region}" , "language" : F"{language}" }
+                    remade_dictionary = { "akas_region_and_languages_pk" : f"{akas_region_and_languages_pk}" ,"titleId" : f"{titleId}" , "title" : f"{title}" , "region" : f"{region}" , "language" : F"{language}" }
                     dictionary_dict_title_and_labguages.append(remade_dictionary)
                     akas_region_and_languages_pk += 1 
                 if header == 1 :
@@ -66,20 +65,20 @@ class from_tsv_to_sql ():
                 chunks.drop_duplicates()
                 data_dict_title_and_labguages = chunks.to_dict(orient= "records")
                 for i in data_dict_title_and_labguages :
-                    if i["types"] == "\\N" :
+                    if i["types_"] == "\\N" :
                             pass
                     else :
                         titleId =  i["titleId"]
-                        types = i["types"]
-                        remade_dictionary = {"titleId" : f"{titleId}" , "types" : f"{types}"}
+                        types_ = i["types_"]
+                        remade_dictionary = {"titleId" : f"{titleId}" , "types_" : f"{types_}"}
                         dictionary_dict_title_and_labguages.append(remade_dictionary)
                 if header == 1 :
                     header +=1 
                     final_dataframe = pd.DataFrame.from_dict(dictionary_dict_title_and_labguages)
-                    final_dataframe.to_csv(f"{directory}/akas_types.csv",mode="a",header=True,encoding='utf-8-sig' , index=False)
+                    final_dataframe.to_csv(f"{directory}/akas_types_.csv",mode="a",header=True,encoding='utf-8-sig' , index=False)
                 else :
                     final_dataframe = pd.DataFrame.from_dict(dictionary_dict_title_and_labguages)
-                    final_dataframe.to_csv(f"{directory}/akas_types.csv",mode="a",header=False,encoding='utf-8-sig' , index=False)
+                    final_dataframe.to_csv(f"{directory}/akas_types_.csv",mode="a",header=False,encoding='utf-8-sig' , index=False)
 #  this part normalizes akas_attributes which includes the title id, attributes 
     def titleAkas_attributes_cleanup() :
         directory = f"{directo}/cleaned_up_nf2"
@@ -234,7 +233,7 @@ class from_tsv_to_sql ():
                 else :
                     final_dataframe = pd.DataFrame.from_dict(dictionary_dict_directors_writers)
                     final_dataframe.to_csv(f"{directory}/titleCrew_directors.csv",mode="a",header=False,encoding='utf-8-sig' , index=False)
-#  this part normalizes titleCrew_writers which includes the titleCrew_writers_pk , tconst , genres
+#  this part normalizes titleCrew_writers which includes the titleCrew_writers_pk , tconst , writers
     def titleCrew_writers_cleanup() :
         directory = f"{directo}/cleaned_up_nf2"
         if os.path.isfile(f"{directory}/titleCrew_writers.csv") == True :
@@ -444,7 +443,7 @@ class from_tsv_to_sql ():
                     chunks.to_csv(f"{directory}/titlePrincipals_job.csv",mode ="a",header=True,encoding='utf-8-sig' , index=True)
                 else :
                     chunks.to_csv(f"{directory}/titlePrincipals_job.csv",mode ="a",header=False,encoding='utf-8-sig' , index=True)
-#  this part normalizes titlePrincipals_characters which includes the titlePrincipals_characters_pk , tconst , nconst ,  characters 
+#  this part normalizes titlePrincipals_characters which includes the titlePrincipals_characters_pk , tconst , nconst ,  characters_ 
     def titlePrincipals_characters_cleanup() :
         directory = f"{directo}/cleaned_up_nf2"
         if os.path.isfile(f"{directory}/titlePrincipals_characters.csv") == True :
@@ -465,7 +464,7 @@ class from_tsv_to_sql ():
                         tconst = i["tconst"]
                         nconst = i["nconst"]
                         characters = i["characters"]
-                        remade_dictionary = { "titlePrincipals_characters_pk" : f"{titlePrincipals_characters_pk}" ,"tconst" : f"{tconst}","nconst" : f"{nconst}","characters" : f"{characters}" }
+                        remade_dictionary = { "titlePrincipals_characters_pk" : f"{titlePrincipals_characters_pk}" ,"tconst" : f"{tconst}","nconst" : f"{nconst}","characters_" : f"{characters}" }
                         dictionary_dict_titlePrincipals_characters.append(remade_dictionary)
                         titlePrincipals_characters_pk += 1
                 if header == 1 :
