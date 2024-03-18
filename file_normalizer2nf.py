@@ -492,7 +492,7 @@ class file_normalization () :
         pass 
     finally :
         while True : 
-            menu = input(f"----------\n1.cleanup the data\n-----------\nplease enter : ")
+            menu = input(f"----------\n1.cleanup the data\n2.exit\n-----------\nplease enter : ")
             if menu == "1" :
                 from_tsv_to_sql.titleEpisode_cleanup()
                 print (f"titleEpisode is done \n ----------------------------- ")
@@ -546,6 +546,8 @@ class file_normalization () :
                 print (f"titlePrincipals_job is done \n ----------------------------- ")
 
                 print (f"7th database is done \n ----------------------------- ")
+            if menu == "2" :
+                pass
             else :
                 print ("option not available ")
 
