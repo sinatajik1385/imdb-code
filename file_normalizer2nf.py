@@ -9,7 +9,7 @@ class from_tsv_to_sql ():
             print ("file already exists")
         else:
             header = 1
-            df = pd.read_csv ("titleEpisode.tsv",chunksize=15000, sep= "\t")
+            df = pd.read_csv ("titleEpisode.tsv",chunksize=50000, sep= "\t")
             for chunks in df :
                 dictionary_seasonnumber_episodenumber = []
                 chunks.drop_duplicates()
@@ -32,7 +32,7 @@ class from_tsv_to_sql ():
         else :
             header = 1
             akas_region_and_languages_pk = 1
-            df = pd.read_csv ("titleAkas.tsv", chunksize=15000 ,sep= "\t")
+            df = pd.read_csv ("titleAkas.tsv", chunksize=50000 ,sep= "\t")
             for chunks in df :
                 dictionary_dict_title_and_labguages = []
                 chunks.drop_duplicates()
@@ -55,11 +55,11 @@ class from_tsv_to_sql ():
 #  this part normalizes akas_types which includes the title id, types 
     def titleAkas_types_cleanup() :
         directory = f"{directo}/cleaned_up_nf2"
-        if os.path.isfile(f"{directory}/akas_types.csv") == True :
+        if os.path.isfile(f"{directory}/akas_types_.csv") == True :
             print ("file already exists")
         else :
             header = 1
-            df = pd.read_csv ("titleAkas.tsv", chunksize=15000 ,sep= "\t")
+            df = pd.read_csv ("titleAkas.tsv", chunksize=50000 ,sep= "\t")
             for chunks in df :
                 dictionary_dict_title_and_labguages = []
                 chunks.drop_duplicates()
@@ -86,7 +86,7 @@ class from_tsv_to_sql ():
             print ("file already exists")
         else :
             header = 1
-            df = pd.read_csv ("titleAkas.tsv", chunksize=15000 ,sep= "\t")
+            df = pd.read_csv ("titleAkas.tsv", chunksize=50000 ,sep= "\t")
             for chunks in df :
                 dictionary_dict_title_and_labguages = []
                 chunks.drop_duplicates()
@@ -113,7 +113,7 @@ class from_tsv_to_sql ():
             print ("file already exists")
         else :
             header = 1
-            df = pd.read_csv ("titleAkas.tsv", chunksize=15000 ,sep= "\t")
+            df = pd.read_csv ("titleAkas.tsv", chunksize=50000 ,sep= "\t")
             for chunks in df :
                 dictionary_dict_title_and_labguages = []
                 chunks.drop_duplicates()
@@ -143,7 +143,7 @@ class from_tsv_to_sql ():
         if os.path.isfile(f"{directory}/titleBasics.csv") == True :
             print ("file already exists")
         else :     
-            df = pd.read_csv ("titleBasics.tsv", chunksize=15000 ,sep= "\t")
+            df = pd.read_csv ("titleBasics.tsv", chunksize=50000 ,sep= "\t")
             header = 1
             for chunks in df :
                 dictionary_dict_isadult_runtime = []
@@ -176,7 +176,7 @@ class from_tsv_to_sql ():
         if os.path.isfile(f"{directory}/titleBasics_genres.csv") == True :
             print ("file already exists")
         else :     
-            df = pd.read_csv ("titleBasics.tsv", chunksize=15000 ,sep= "\t")
+            df = pd.read_csv ("titleBasics.tsv", chunksize=50000 ,sep= "\t")
             titleBasics_genres_genres_pk = 1
             header = 1
             for chunks in df :
@@ -210,7 +210,7 @@ class from_tsv_to_sql ():
         else :
             titleCrew_directors_pk = 1
             header = 1
-            df = pd.read_csv ("titleCrew.tsv", chunksize=15000 ,sep= "\t")
+            df = pd.read_csv ("titleCrew.tsv", chunksize=50000 ,sep= "\t")
             for chunks in df :
                 dictionary_dict_directors_writers = []
                 chunks.drop_duplicates()
@@ -241,7 +241,7 @@ class from_tsv_to_sql ():
         else :
             titleCrew_writers_pk = 1
             header = 1
-            df = pd.read_csv ("titleCrew.tsv", chunksize=15000 ,sep= "\t")
+            df = pd.read_csv ("titleCrew.tsv", chunksize=50000 ,sep= "\t")
             for chunks in df :
                 dictionary_dict_directors_writers = []
                 chunks.drop_duplicates()
@@ -271,7 +271,7 @@ class from_tsv_to_sql ():
             print ("file already exists")
         else :
             header = 1 
-            df = pd.read_csv ("titleRatings.tsv", chunksize=15000 ,sep= "\t")
+            df = pd.read_csv ("titleRatings.tsv", chunksize=50000 ,sep= "\t")
             for chunks in df :
                 dictionary_dict_averagerating_numberofvotes = []
                 chunks.drop_duplicates()
@@ -297,7 +297,7 @@ class from_tsv_to_sql ():
         if os.path.isfile(f"{directory}/nameBasics_general.csv") == True :
             print ("file already exists")
         else :
-            df = pd.read_csv ("nameBasics.tsv", chunksize=15000 ,sep= "\t")
+            df = pd.read_csv ("nameBasics.tsv", chunksize=50000 ,sep= "\t")
             header = 1
             for chunks in df :
                 dictionary_dict_actornames = []
@@ -329,7 +329,7 @@ class from_tsv_to_sql ():
         if os.path.isfile(f"{directory}/nameBasics_primaryProfession.csv") == True :
             print ("file already exists")
         else :
-            df = pd.read_csv ("nameBasics.tsv", chunksize=15000 ,sep= "\t")
+            df = pd.read_csv ("nameBasics.tsv", chunksize=50000 ,sep= "\t")
             header = 1
             nameBasics_primaryProfession_pk = 1
             for chunks in df :
@@ -361,7 +361,7 @@ class from_tsv_to_sql ():
         if os.path.isfile(f"{directory}/nameBasics_knownForTitles.csv") == True :
             print ("file already exists")
         else :
-            df = pd.read_csv ("nameBasics.tsv", chunksize=15000 ,sep= "\t")
+            df = pd.read_csv ("nameBasics.tsv", chunksize=50000 ,sep= "\t")
             header = 1
             nameBasics_knownForTitles_pk = 1
             for chunks in df :
@@ -396,7 +396,7 @@ class from_tsv_to_sql ():
         else :
             header = 1
             titlePrincipals_general_pk = 1 
-            df = pd.read_csv ("titlePrincipals.tsv", chunksize=150000 ,low_memory=False,sep= "\t")
+            df = pd.read_csv ("titlePrincipals.tsv", chunksize=500000 ,low_memory=False,sep= "\t")
             for chunks in df : 
                 dictionary_dict_titlePrincipals_general = []
                 chunks.drop_duplicates()
@@ -422,7 +422,7 @@ class from_tsv_to_sql ():
         else :
             header = 1
             titlePrincipals_job_pk = 1 
-            df = pd.read_csv ("titlePrincipals.tsv", chunksize=150000 ,low_memory=False,sep= "\t")
+            df = pd.read_csv ("titlePrincipals.tsv", chunksize=500000 ,low_memory=False,sep= "\t")
             for chunks in df : 
                 dictionary_dict_titlePrincipals_job = []
                 chunks.drop_duplicates()
@@ -451,7 +451,7 @@ class from_tsv_to_sql ():
         else :
             header = 1
             titlePrincipals_characters_pk = 1 
-            df = pd.read_csv ("titlePrincipals.tsv", chunksize=150000 ,low_memory=False,sep= "\t")
+            df = pd.read_csv ("titlePrincipals.tsv", chunksize=500000 ,low_memory=False,sep= "\t")
             for chunks in df : 
                 dictionary_dict_titlePrincipals_characters = []
                 chunks.drop_duplicates()
@@ -485,78 +485,79 @@ class from_tsv_to_sql ():
 ⠉⠉⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⣈⣉⣭⣽⡿⠟⢉⢴⣿⡇⣺⣿⣷
 ⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠁⠐⢊⣡⣴⣾⣥"""
 directo = os.getcwd()
-try :
-    os.mkdir(f"{directo}/cleaned_up_nf2")
-except :
-    pass 
-finally :
-    while True : 
-        menu = input(f"----------\n1.cleanup the data\n-----------\nplease enter : ")
-        if menu == "1" :
-            from_tsv_to_sql.titleEpisode_cleanup()
-            print (f"titleEpisode is done \n ----------------------------- ")
+class file_normalization () :
+    try :
+        os.mkdir(f"{directo}/cleaned_up_nf2")
+    except :
+        pass 
+    finally :
+        while True : 
+            menu = input(f"----------\n1.cleanup the data\n-----------\nplease enter : ")
+            if menu == "1" :
+                from_tsv_to_sql.titleEpisode_cleanup()
+                print (f"titleEpisode is done \n ----------------------------- ")
 
-            print (f"1st database is done \n ----------------------------- ")
+                print (f"1st database is done \n ----------------------------- ")
 
-            from_tsv_to_sql.titleAkas_types_cleanup()
-            print (f"titleAkas_types is done \n ----------------------------- ")
-            from_tsv_to_sql.titleAkas_region_and_languages_cleanup()
-            print (f"titleAkas_region_and_languages is done \n ----------------------------- ")
-            from_tsv_to_sql.titleAkas_attributes_cleanup()
-            print (f"titleAkas_attributes is done \n ----------------------------- ")
-            from_tsv_to_sql.titleAkas_isOriginalTitle_cleanup()
-            print (f"titleAkas_isOriginalTitle is done \n ----------------------------- ")
+                from_tsv_to_sql.titleAkas_types_cleanup()
+                print (f"titleAkas_types is done \n ----------------------------- ")
+                from_tsv_to_sql.titleAkas_region_and_languages_cleanup()
+                print (f"titleAkas_region_and_languages is done \n ----------------------------- ")
+                from_tsv_to_sql.titleAkas_attributes_cleanup()
+                print (f"titleAkas_attributes is done \n ----------------------------- ")
+                from_tsv_to_sql.titleAkas_isOriginalTitle_cleanup()
+                print (f"titleAkas_isOriginalTitle is done \n ----------------------------- ")
 
-            print (f"2nd database is done \n ----------------------------- ")
+                print (f"2nd database is done \n ----------------------------- ")
 
-            from_tsv_to_sql.titleBasics_cleanup()
-            print (f"titleBasics is done \n ----------------------------- ")
-            from_tsv_to_sql.titleBasics_genres_cleanup()
-            print (f"titleBasics_genres is done \n ----------------------------- ")
+                from_tsv_to_sql.titleBasics_cleanup()
+                print (f"titleBasics is done \n ----------------------------- ")
+                from_tsv_to_sql.titleBasics_genres_cleanup()
+                print (f"titleBasics_genres is done \n ----------------------------- ")
 
-            print (f"3rd database is done \n ----------------------------- ")
+                print (f"3rd database is done \n ----------------------------- ")
 
-            from_tsv_to_sql.titleCrew_directors_cleanup()
-            print (f"titleCrew_directors is done \n ----------------------------- ")
-            from_tsv_to_sql.titleCrew_writers_cleanup()
-            print (f"titleCrew_writers is done \n ----------------------------- ")
+                from_tsv_to_sql.titleCrew_directors_cleanup()
+                print (f"titleCrew_directors is done \n ----------------------------- ")
+                from_tsv_to_sql.titleCrew_writers_cleanup()
+                print (f"titleCrew_writers is done \n ----------------------------- ")
 
-            print (f"4th database is done \n ----------------------------- ")
+                print (f"4th database is done \n ----------------------------- ")
 
-            from_tsv_to_sql.titleRatings_cleanup()
-            print (f"titleRatings is done \n ----------------------------- ")
+                from_tsv_to_sql.titleRatings_cleanup()
+                print (f"titleRatings is done \n ----------------------------- ")
 
-            print (f"5th database is done \n ----------------------------- ")
+                print (f"5th database is done \n ----------------------------- ")
 
-            from_tsv_to_sql.nameBasics_general_cleanup()
-            print (f"nameBasics_general is done \n ----------------------------- ")
-            from_tsv_to_sql.nameBasics_knownForTitles_cleanup()
-            print (f"nameBasics_knownForTitles is done \n ----------------------------- ")
-            from_tsv_to_sql.nameBasics_primaryProfession_cleanup()
-            print (f"nameBasics_primaryProfession is done \n ----------------------------- ")
+                from_tsv_to_sql.nameBasics_general_cleanup()
+                print (f"nameBasics_general is done \n ----------------------------- ")
+                from_tsv_to_sql.nameBasics_knownForTitles_cleanup()
+                print (f"nameBasics_knownForTitles is done \n ----------------------------- ")
+                from_tsv_to_sql.nameBasics_primaryProfession_cleanup()
+                print (f"nameBasics_primaryProfession is done \n ----------------------------- ")
 
-            print (f"6th database is done \n ----------------------------- ")
-            
-            from_tsv_to_sql.titlePrincipals_general_cleanup()
-            print (f"titlePrincipals_general is done \n ----------------------------- ")
-            from_tsv_to_sql.titlePrincipals_general_cleanup()
-            print (f"titlePrincipals_general is done \n ----------------------------- ")
-            from_tsv_to_sql.titlePrincipals_job_cleanup()
-            print (f"titlePrincipals_job is done \n ----------------------------- ")
+                print (f"6th database is done \n ----------------------------- ")
+                
+                from_tsv_to_sql.titlePrincipals_general_cleanup()
+                print (f"titlePrincipals_general is done \n ----------------------------- ")
+                from_tsv_to_sql.titlePrincipals_general_cleanup()
+                print (f"titlePrincipals_general is done \n ----------------------------- ")
+                from_tsv_to_sql.titlePrincipals_job_cleanup()
+                print (f"titlePrincipals_job is done \n ----------------------------- ")
 
-            print (f"7th database is done \n ----------------------------- ")
-        else :
-            print ("option not available ")
+                print (f"7th database is done \n ----------------------------- ")
+            else :
+                print ("option not available ")
 
 # to be used for later :p 
-"""
-    def tmdb_movies_budget_revenue_add_up() :
-        directo = os.getcwd()
+
+
+"""        directo = os.getcwd()
         directory = f"{directo}/cleaned_up_nf2"
         if os.path.isfile(f"{directory}/tmdb_movies_budget_revenue.csv") == True :
             print ("file already exists")
         else :     
-            df = pd.read_csv ("titleBasics.tsv", chunksize=15000 ,sep= "\t")
+            df = pd.read_csv ("titleBasics.tsv", chunksize=50000 ,sep= "\t")
             header = 1
             for chunks in df :
                 dictionary_dict_tmdb = []
@@ -586,6 +587,7 @@ finally :
                                         x = int (x)
                                         movie_stats_budget = str(movie_stats1[-2]).split(" ")
                                         movie_stats_revenue = str(movie_stats1 [-3]).split(" ")
+                                        print (movie_stats_budget ,movie_stats_revenue )
                                         print("web scraped")
                                         remade_dictionary = {"tconst" : f"{tconst}" , "Budget" : f"{movie_stats_budget[-1]}" , "Revenue" : f"{movie_stats_revenue[-1]}"  }
                                         dictionary_dict_tmdb.append(remade_dictionary)
@@ -597,5 +599,4 @@ finally :
                     final_dataframe.to_csv(f"{directory}/tmdb_movies_budget_revenue.csv",mode="a",header=True,encoding='utf-8-sig' , index=False)
                 else :
                     final_dataframe = pd.DataFrame.from_dict(dictionary_dict_tmdb)
-                    final_dataframe.to_csv(f"{directory}/tmdb_movies_budget_revenue.csv",mode="a",header=False,encoding='utf-8-sig' , index=False)     
-"""
+                    final_dataframe.to_csv(f"{directory}/tmdb_movies_budget_revenue.csv",mode="a",header=False,encoding='utf-8-sig' , index=False)    """ 
