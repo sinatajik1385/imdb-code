@@ -10,6 +10,7 @@ if os.path.isfile(f"{directory}/tmdb_movies_budget_revenue.csv") == True :
 else :     
     df = pd.read_csv ("titleBasics.tsv", chunksize=100 ,sep= "\t")
     header = 1
+    tmdb_movies_budget_revenue_pk = 1
     for chunks in df :
         dictionary_dict_tmdb = []
         chunks.drop_duplicates()
@@ -40,8 +41,9 @@ else :
                                 movie_stats_budget = str(movie_stats1[-2]).split(" ")
                                 movie_stats_revenue = str(movie_stats1 [-3]).split(" ")
                                 print("web scraped")
-                                remade_dictionary = {"tconst" : f"{tconst}" , "Budget" : f"{movie_stats_budget[-1]}" , "Revenue" : f"{movie_stats_revenue[-1]}"  }
+                                remade_dictionary = {"tmdb_movies_budget_revenue_pk" : f"{tmdb_movies_budget_revenue_pk}" , "tconst" : f"{tconst}" , "Budget" : f"{movie_stats_budget[-1]}" , "Revenue" : f"{movie_stats_revenue[-1]}"  }
                                 dictionary_dict_tmdb.append(remade_dictionary)
+                                tmdb_movies_budget_revenue_pk += 1
                         except :
                             pass
         if header == 1 :
