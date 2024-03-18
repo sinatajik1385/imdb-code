@@ -8,7 +8,7 @@ directory = f"{directo}/cleaned_up_nf2"
 if os.path.isfile(f"{directory}/tmdb_movies_budget_revenue.csv") == True :
     print ("file already exists")
 else :     
-    df = pd.read_csv ("titleBasics.tsv", chunksize=50000 ,sep= "\t")
+    df = pd.read_csv ("titleBasics.tsv", chunksize=100 ,sep= "\t")
     header = 1
     for chunks in df :
         dictionary_dict_tmdb = []
@@ -21,7 +21,8 @@ else :
                 pass
             else :
                 header = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36'}
-                html_text = requests.get (f"https://www.themoviedb.org/search?query="+i["originalTitle"]+"%20y%3A"+i["startYear"] , headers=header).text
+                start_year = str(i["startYear"])
+                html_text = requests.get (f"https://www.themoviedb.org/search?query="+i["originalTitle"]+"%20y%3A"+start_year , headers=header).text
                 soup = BeautifulSoup(html_text , "html.parser")
                 container = soup.find("a" , class_= "result")
                 url_result = str(container).split('"')
@@ -38,7 +39,6 @@ else :
                                 x = int (x)
                                 movie_stats_budget = str(movie_stats1[-2]).split(" ")
                                 movie_stats_revenue = str(movie_stats1 [-3]).split(" ")
-                                print (movie_stats_budget ,movie_stats_revenue )
                                 print("web scraped")
                                 remade_dictionary = {"tconst" : f"{tconst}" , "Budget" : f"{movie_stats_budget[-1]}" , "Revenue" : f"{movie_stats_revenue[-1]}"  }
                                 dictionary_dict_tmdb.append(remade_dictionary)
