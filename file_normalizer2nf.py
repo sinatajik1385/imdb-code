@@ -65,11 +65,11 @@ class from_tsv_to_sql ():
                 chunks.drop_duplicates()
                 data_dict_title_and_labguages = chunks.to_dict(orient= "records")
                 for i in data_dict_title_and_labguages :
-                    if i["types_"] == "\\N" :
+                    if i["types"] == "\\N" :
                             pass
                     else :
                         titleId =  i["titleId"]
-                        types_ = i["types_"]
+                        types_ = i["types"]
                         remade_dictionary = {"titleId" : f"{titleId}" , "types_" : f"{types_}"}
                         dictionary_dict_title_and_labguages.append(remade_dictionary)
                 if header == 1 :
