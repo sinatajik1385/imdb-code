@@ -546,7 +546,10 @@ class file_normalization () :
                 print (f"titlePrincipals_job is done \n ----------------------------- ")
 
                 print (f"7th database is done \n ----------------------------- ")
+                break
             if menu == "2" :
-                pass
+                break
             else :
                 print ("option not available ")
+
+# to be used for later :p 
