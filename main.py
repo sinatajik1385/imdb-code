@@ -413,7 +413,7 @@ DELIMITER E','
 CSV HEADER;
 
 """)
-
+print ("database uploaded into sql")
 curr.execute (f"""
 copy titleAkas_region_and_languages 
 FROM '{full_directory}/titleAkas_region_and_languages.csv' 
@@ -421,7 +421,7 @@ DELIMITER E','
 CSV HEADER;
 
 """)
-
+print ("database uploaded into sql")
 curr.execute (f"""
 copy titleAkas_types 
 FROM '{full_directory}/titleAkas_types.csv' 
@@ -429,7 +429,7 @@ DELIMITER E','
 CSV HEADER;
 
 """)
-
+print ("database uploaded into sql")
 curr.execute (f"""
 copy titleAkas_attributes 
 FROM '{full_directory}/titleAkas_attributes.csv' 
@@ -437,7 +437,7 @@ DELIMITER E','
 CSV HEADER;
 
 """)
-
+print ("database uploaded into sql")
 curr.execute (f"""
 copy titleAkas_isOriginalTitle 
 FROM '{full_directory}/titleAkas_isOriginalTitle.csv' 
@@ -445,7 +445,7 @@ DELIMITER E','
 CSV HEADER;
 
 """)
-
+print ("database uploaded into sql")
 curr.execute (f"""
 copy titleBasics_cleanup  
 FROM '{full_directory}/titleBasics_cleanup .csv' 
@@ -453,7 +453,7 @@ DELIMITER E','
 CSV HEADER;
 
 """)
-
+print ("database uploaded into sql")
 curr.execute (f"""
 copy titleBasics_genres
 FROM '{full_directory}/titleBasics_genres.csv' 
@@ -461,7 +461,7 @@ DELIMITER E','
 CSV HEADER;
 
 """)
-
+print ("database uploaded into sql")
 curr.execute (f"""
 copy titleCrew_directors
 FROM '{full_directory}/titleCrew_directors.csv' 
@@ -469,7 +469,7 @@ DELIMITER E','
 CSV HEADER;
 
 """)
-
+print ("database uploaded into sql")
 curr.execute (f"""
 copy titleCrew_writers 
 FROM '{full_directory}/titleCrew_writers.csv' 
@@ -477,7 +477,7 @@ DELIMITER E','
 CSV HEADER;
 
 """)
-
+print ("database uploaded into sql")
 curr.execute (f"""
 copy titleRatings
 FROM '{full_directory}/titleRatings.csv' 
@@ -485,7 +485,7 @@ DELIMITER E','
 CSV HEADER;
 
 """)
-
+print ("database uploaded into sql")
 curr.execute (f"""
 copy nameBasics_general 
 FROM '{full_directory}/nameBasics_general.csv' 
@@ -493,7 +493,7 @@ DELIMITER E','
 CSV HEADER;
 
 """)
-
+print ("database uploaded into sql")
 curr.execute (f"""
 copy nameBasics_primaryProfession 
 FROM '{full_directory}/nameBasics_primaryProfession.csv' 
@@ -501,7 +501,7 @@ DELIMITER E','
 CSV HEADER;
 
 """)
-
+print ("database uploaded into sql")
 curr.execute (f"""
 copy nameBasics_knownForTitles 
 FROM '{full_directory}/nameBasics_knownForTitles.csv' 
@@ -509,7 +509,7 @@ DELIMITER E','
 CSV HEADER;
 
 """)
-
+print ("database uploaded into sql")
 curr.execute (f"""
 copy titlePrincipals_general 
 FROM '{full_directory}/titlePrincipals_general.csv' 
@@ -517,7 +517,7 @@ DELIMITER E','
 CSV HEADER;
 
 """)
-
+print ("database uploaded into sql")
 curr.execute (f"""
 copy titlePrincipals_job_cleanup 
 FROM '{full_directory}/titlePrincipals_job_cleanup.csv' 
@@ -525,7 +525,7 @@ DELIMITER E','
 CSV HEADER;
 
 """)
-
+print ("database uploaded into sql")
 curr.execute (f"""
 copy titlePrincipals_characters 
 FROM '{full_directory}/titlePrincipals_characters.csv' 
@@ -533,7 +533,7 @@ DELIMITER E','
 CSV HEADER;
 
 """)
-
+print ("database uploaded into sql")
 
 conn.commit()
 
