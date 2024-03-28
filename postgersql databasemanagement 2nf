@@ -1,4 +1,4 @@
--- titleEpisodes (tconst,parenttconst,seasonnumber,episodenumber)
+-- titleEpisode (tconst,parenttconst,seasonnumber,episodenumber)
 -- titleAkas_region_and_languages (akas_region_and_languages_pk,titleId,title,region,language)
 -- titleAkas_types (titleId,types_)
 -- titleAkas_attributes (titleId,attributes)
@@ -15,105 +15,247 @@
 -- titlePrincipals_job_cleanup (titlePrincipals_job_pk,tconst,nconst,job)
 -- titlePrincipals_characters (titlePrincipals_characters_pk,tconst,nconst,characters_)
 
+
+--cleaning up
+
+
+
+DROP TABLE IF EXISTS titleEpisode;
+DROP TABLE IF EXISTS titleAkas_region_and_languages;
+DROP TABLE IF EXISTS titleAkas_types;
+DROP TABLE IF EXISTS titleAkas_attributes;
+DROP TABLE IF EXISTS titleAkas_isOriginalTitle;
+DROP TABLE IF EXISTS titleBasics;
+DROP TABLE IF EXISTS titleBasics_genres;
+DROP TABLE IF EXISTS titleCrew_directors;
+DROP TABLE IF EXISTS titleCrew_writers;
+DROP TABLE IF EXISTS titleRatings;
+DROP TABLE IF EXISTS nameBasics_general;
+DROP TABLE IF EXISTS nameBasics_primaryProfession;
+DROP TABLE IF EXISTS nameBasics_knownForTitles;
+DROP TABLE IF EXISTS titlePrincipals_general;
+DROP TABLE IF EXISTS titlePrincipals_job;
+DROP TABLE IF EXISTS titlePrincipals_characters;
+
+            
+
+
+--making the data tables
+
 CREATE TABLE titleEpisode ( 
     tconst VARCHAR NOT NULL PRIMARY KEY UNIQUE,  
     parentTconst VARCHAR NOT NULL ,  
-    seasonNumber INTEGER NOT NULL,  
-    episodeNumber INTEGER NOT NULL 
-); 
+    seasonNumber VARCHAR NOT NULL,  
+    episodeNumber VARCHAR NOT NULL 
+);
+
+
+
 
 CREATE TABLE titleAkas_region_and_languages (
-	akas_region_and_languages_pk VARCHAR NOT NULL PRIMARY KEY UNIQUE,
-	titleId VARCHAR NOT NULL,
-	title VARCHAR,
-	region VARCHAR, 
-	language VARCHAR
+akas_region_and_languages_pk VARCHAR NOT NULL PRIMARY KEY UNIQUE,
+titleId VARCHAR NOT NULL,
+title VARCHAR,
+region VARCHAR, 
+language VARCHAR
 );
+
+
 
 CREATE TABLE titleAkas_types (
-	titleId NOT NULL PRIMARY KEY UNIQUE,
-	types_ NOT NULL 
+    titleId VARCHAR NOT NULL PRIMARY KEY UNIQUE,
+    types_ VARCHAR NOT NULL 
 );
 
-CREATE TABLE titleAkas_attributes(
-	titleId VARCHAR NOT NULL PRIMARY KEY UNIQUE,
-	attributes VARCHAR NOT NULL
+CREATE TABLE titleAkas_attributes (
+    titleId VARCHAR NOT NULL PRIMARY KEY UNIQUE,
+    attributes VARCHAR NOT NULL 
 );
 
 CREATE TABLE titleAkas_isOriginalTitle(
-	titleId VARCHAR NOT NULL PRIMARY KEY UNIQUE,
-	isOriginalTitle VARCHAR NOT NULL
+titleId VARCHAR NOT NULL PRIMARY KEY UNIQUE,
+isOriginalTitle VARCHAR NOT NULL
 );
 
 CREATE TABLE titleBasics(
-    tconst varchar not null PRIMARY KEY, 
-    titleType varchar not null, 
-    primaryTitle  varchar , 
-    originalTitle varchar , 
-    isAdult varchar , 
-    startYear varchar, 
-    endYear varchar, 
-    runtimeMinutes VARCHAR , 
+tconst varchar not null PRIMARY KEY, 
+titleType varchar not null, 
+primaryTitle  varchar , 
+originalTitle varchar , 
+isAdult varchar , 
+startYear varchar, 
+endYear varchar, 
+runtimeMinutes VARCHAR 
 );
 
 CREATE TABLE titleBasics_genres(
-	titleBasics_genres_pk INT NOT NULL PRIMARY KEY UNIQUE,
-	tconst VARCHAR NOT NULL,
-	genres VARCHAR NOT NULL
+titleBasics_genres_pk INT NOT NULL PRIMARY KEY UNIQUE,
+tconst VARCHAR NOT NULL,
+genres VARCHAR NOT NULL
 );
+
 
 CREATE TABLE titleCrew_directors (
-	titleCrew_directors_pk INT NOT NULL PRIMARY KEY UNIQUE
-	tconst VARCHAR NOT NULL,
-	directors VARCHAR NOT NULL
+titleCrew_directors_pk INT NOT NULL PRIMARY KEY UNIQUE,
+tconst VARCHAR NOT NULL,
+directors VARCHAR NOT NULL
 );
+
 
 CREATE TABLE titleCrew_writers(
-	titleCrew_writers_pk INT NOT NULL PRIMARY KEY UNIQUE,
-	tconst VARCHAR NOT NULL,
-	writers VARCHAR NOT NULL
+titleCrew_writers_pk INT NOT NULL PRIMARY KEY UNIQUE,
+tconst VARCHAR NOT NULL,
+writers VARCHAR NOT NULL
 );
+
 
 Create table titleRatings( 
-    tconst varchar PRIMARY KEY, 
-    averageRating float NOT NULL,
-    numVotes int NOT NULL
+tconst varchar PRIMARY KEY, 
+averageRating float NOT NULL,
+numVotes int NOT NULL
 );
 
+
 CREATE TABLE nameBasics_general(
-	nconst VARCHAR NOT NULL PRIMARY KEY UNIQUE,
-	primaryName VARCHAR NOT NULL,
-	birthYear INT NOT NULL,
-	deathYear VARCHAR
+nconst VARCHAR NOT NULL PRIMARY KEY UNIQUE,
+primaryName VARCHAR NOT NULL,
+birthYear INT NOT NULL,
+deathYear VARCHAR
 );
 
 CREATE TABLE nameBasics_primaryProfession(
-	nameBasics_primaryProfession_pk INT NOT NULL PRIMARY KEY UNIQUE,
-	nconst VARCHAR NOT NULL,
-	primaryProfession VARCHAR
+nameBasics_primaryProfession_pk INT NOT NULL PRIMARY KEY UNIQUE,
+nconst VARCHAR NOT NULL,
+primaryProfession VARCHAR
 );
+
 
 CREATE TABLE nameBasics_knownForTitles(
-	nameBasics_knownForTitles_pk INT NOT NULL PRIMARY KEY UNIQUE,
-	nconst VARCHAR NOT NULL,
-	knownForTitles VARCHAR
+nameBasics_knownForTitles_pk INT NOT NULL PRIMARY KEY UNIQUE,
+nconst VARCHAR NOT NULL,
+knownForTitles VARCHAR
 );
+
 
 CREATE TABLE titlePrincipals_general(
-	titlePrincipals_general_pk INT NOT NULL PRIMARY KEY UNIQUE,
-	tconst VARCHAR NOT NULL,
-	nconst VARCHAR NOT NULL,
-	category VARCHAR
+titlePrincipals_general_pk INT NOT NULL PRIMARY KEY UNIQUE,
+tconst VARCHAR NOT NULL,
+nconst VARCHAR NOT NULL,
+category VARCHAR
 );
+
 
 CREATE TABLE titlePrincipals_job(
-	titlePrincipals_job_pk INT NOT NULL PRIMARY KEY UNIQUE,
-	tconst VARCHAR NOT NULL,
-	nconst VARCHAR
+titlePrincipals_job_pk INT NOT NULL PRIMARY KEY UNIQUE,
+tconst VARCHAR NOT NULL,
+nconst VARCHAR NOT NULL,
+job VARCHAR NOT NULL
 );
 
+
 CREATE TABLE titlePrincipals_characters(
-	titlePrincipals_characters_pk INT NOT NULL PRIMARY KEY UNIQUE,
-	tconst VARCHAR NOT NULL,
-	nconst VARCHAR NOT NULL
+titlePrincipals_characters_pk INT NOT NULL PRIMARY KEY UNIQUE,
+tconst VARCHAR NOT NULL,
+nconst VARCHAR NOT NULL,
+characters_ VARCHAR NOT NULL
 );
+    
+
+
+---------making the initial databses(2nf)---------
+
+
+copy titleEpisode 
+FROM '(YOUR-DIRECTORY-HERE)\titleEpisode.csv' 
+DELIMITER E',' 
+CSV HEADER;
+
+
+copy titleAkas_region_and_languages 
+FROM '(YOUR-DIRECTORY-HERE)\Akas_region_and_languages.csv' 
+DELIMITER E',' 
+CSV HEADER;
+
+
+copy titleAkas_types 
+FROM '(YOUR-DIRECTORY-HERE)\akas_types_.csv' 
+DELIMITER E',' 
+CSV HEADER;
+
+
+copy titleAkas_attributes 
+FROM '(YOUR-DIRECTORY-HERE)\akas_attributes.csv' 
+DELIMITER E',' 
+CSV HEADER;
+
+
+copy titleAkas_isOriginalTitle 
+FROM '(YOUR-DIRECTORY-HERE)\titleAkas_isOriginalTitle.csv' 
+DELIMITER E',' 
+CSV HEADER;
+
+
+copy titleBasics_cleanup  
+FROM '(YOUR-DIRECTORY-HERE)\titleBasics_cleanup .csv' 
+DELIMITER E',' 
+CSV HEADER;
+
+
+copy titleBasics_genres
+FROM '(YOUR-DIRECTORY-HERE)\titleBasics_genres.csv' 
+DELIMITER E',' 
+CSV HEADER;
+
+
+copy titleCrew_directors
+FROM '(YOUR-DIRECTORY-HERE)\titleCrew_directors.csv' 
+DELIMITER E',' 
+CSV HEADER;
+
+
+copy titleCrew_writers 
+FROM '(YOUR-DIRECTORY-HERE)\titleCrew_writers.csv' 
+DELIMITER E',' 
+CSV HEADER;
+
+
+copy titleRatings
+FROM '(YOUR-DIRECTORY-HERE)\titleRatings.csv' 
+DELIMITER E',' 
+CSV HEADER;
+
+
+copy nameBasics_general 
+FROM '(YOUR-DIRECTORY-HERE)\nameBasics_general.csv' 
+DELIMITER E',' 
+CSV HEADER;
+
+
+copy nameBasics_primaryProfession 
+FROM '(YOUR-DIRECTORY-HERE)\nameBasics_primaryProfession.csv' 
+DELIMITER E',' 
+CSV HEADER;
+
+
+copy nameBasics_knownForTitles 
+FROM '(YOUR-DIRECTORY-HERE)\nameBasics_knownForTitles.csv' 
+DELIMITER E',' 
+CSV HEADER;
+
+
+copy titlePrincipals_general 
+FROM '(YOUR-DIRECTORY-HERE)\titlePrincipals_general.csv' 
+DELIMITER E',' 
+CSV HEADER;
+
+
+copy titlePrincipals_job
+FROM '(YOUR-DIRECTORY-HERE)\titlePrincipals_job.csv' 
+DELIMITER E',' 
+CSV HEADER;
+
+
+copy titlePrincipals_characters 
+FROM '(YOUR-DIRECTORY-HERE)\titlePrincipals_characters.csv' 
+DELIMITER E',' 
+CSV HEADER;
