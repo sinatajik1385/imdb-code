@@ -1,24 +1,37 @@
 import psycopg2
 import os
 from file_normalizer_2nf import file_normalization , from_tsv_to_sql
+from winotify import  Notification , audio
 
 directory = os.getcwd()
-full_directory = f"{directory}/cleaned_up_nf2"
-print (os.path.isdir(full_directory))
+
+toast = Notification(app_id="sql integration" ,
+                     title="integration completed" ,
+                     msg="the file integration has been completed" ,
+                     duration="short" ,
+                     icon=f"{directory}\icon.jpg")
+
+toast1 = Notification(app_id="sql integration" ,
+                     title="integration starting" ,
+                     msg="the file integration has been starting" ,
+                     duration="short" ,
+                     icon=f"{directory}\icon1.jpeg")
+
+full_directory = f"{directory}\cleaned_up_nf2"
+
 conn = psycopg2.connect(
         host = "localhost",
         dbname = "imdb",
         port = "5432",
         user = "postgres",
-        password = "QaZxcv54321"
+        password = "put your password here"
 )
 
 curr = conn.cursor()
 
-
 """
 -- titleEpisode (tconst,parenttconst,seasonnumber,episodenumber)
--- titleAkas_region_and_languages (akas_region_and_languages_pk,titleId,title,region,language)
+-- Akas_region_and_languages (akas_region_and_languages_pk,titleId,title,region,language)
 -- titleAkas_types (titleId,types_)
 -- titleAkas_attributes (titleId,attributes)
 -- titleAkas_isOriginalTitle(titleId,isOriginalTitle)
@@ -39,26 +52,27 @@ curr = conn.cursor()
 
 curr.execute("""
 
-DROP TABLE IF EXISTS titleEpisode;
-DROP TABLE IF EXISTS titleAkas_region_and_languages;
-DROP TABLE IF EXISTS titleAkas_types;
-DROP TABLE IF EXISTS titleAkas_attributes;
-DROP TABLE IF EXISTS titleAkas_isOriginalTitle;
-DROP TABLE IF EXISTS titleBasics_cleanup;
-DROP TABLE IF EXISTS titleBasics_genres;
-DROP TABLE IF EXISTS titleCrew_directors;
-DROP TABLE IF EXISTS titleCrew_writers;
-DROP TABLE IF EXISTS titleRatings;
-DROP TABLE IF EXISTS nameBasics_general;
-DROP TABLE IF EXISTS nameBasics_primaryProfession;
-DROP TABLE IF EXISTS titlePrincipals_general;
-DROP TABLE IF EXISTS titlePrincipals_job_cleanup;
-DROP TABLE IF EXISTS titlePrincipals_job_cleanup;
+DROP TABLE IF EXISTS titleEpisode CASCADE;
+DROP TABLE IF EXISTS Akas_region_and_languages CASCADE;
+DROP TABLE IF EXISTS titleAkas_types CASCADE;
+DROP TABLE IF EXISTS titleAkas_attributes CASCADE;
+DROP TABLE IF EXISTS titleAkas_isOriginalTitle CASCADE;
+DROP TABLE IF EXISTS titleBasics CASCADE;
+DROP TABLE IF EXISTS titleBasics_genres CASCADE; 
+DROP TABLE IF EXISTS titleCrew_directors CASCADE;
+DROP TABLE IF EXISTS titleCrew_writers CASCADE;
+DROP TABLE IF EXISTS titleRatings CASCADE;
+DROP TABLE IF EXISTS nameBasics_general CASCADE;
+DROP TABLE IF EXISTS nameBasics_primaryProfession CASCADE;
+DROP TABLE IF EXISTS nameBasics_knownForTitles CASCADE;
+DROP TABLE IF EXISTS titlePrincipals_general CASCADE;
+DROP TABLE IF EXISTS titlePrincipals_job CASCADE;
+DROP TABLE IF EXISTS titlePrincipals_characters CASCADE;
             
 """)
 
 #making the data tables
-if os.path.isfile(f"{full_directory}/titleEpisode.csv") == False :
+if os.path.isfile(f"{full_directory}/titleEpisode.csv") == "False" :
     print ("database is missing")
     conformation = input("please press 1 to confirm : ")
     if conformation == "1" :
@@ -73,6 +87,7 @@ if os.path.isfile(f"{full_directory}/titleEpisode.csv") == False :
         ); 
         """)
 else :
+
     curr.execute("""
     CREATE TABLE titleEpisode ( 
         tconst VARCHAR NOT NULL PRIMARY KEY UNIQUE,  
@@ -82,14 +97,14 @@ else :
     ); 
     """)
 
-if os.path.isfile(f"{full_directory}/titleAkas_region_and_languages.csv") == False :
+if os.path.isfile(f"{full_directory}/titleAkas_region_and_languages.csv") == "False" :
     print ("database is missing")
     conformation = input("please press 1 to confirm : ")
     if conformation == "1" :
         from_tsv_to_sql.titleAkas_region_and_languages_cleanup()
 
         curr.execute("""
-        CREATE TABLE titleAkas_region_and_languages (
+        CREATE TABLE Akas_region_and_languages (
         akas_region_and_languages_pk VARCHAR NOT NULL PRIMARY KEY UNIQUE,
         titleId VARCHAR NOT NULL,
         title VARCHAR,
@@ -98,8 +113,9 @@ if os.path.isfile(f"{full_directory}/titleAkas_region_and_languages.csv") == Fal
     );
         """)
 else :
+
     curr.execute("""
-    CREATE TABLE titleAkas_region_and_languages (
+    CREATE TABLE Akas_region_and_languages (
     akas_region_and_languages_pk VARCHAR NOT NULL PRIMARY KEY UNIQUE,
     titleId VARCHAR NOT NULL,
     title VARCHAR,
@@ -108,7 +124,8 @@ else :
 );
     """)
 
-if os.path.isfile(f"{full_directory}/titleAkas_types.csv") == False :
+
+if os.path.isfile(f"{full_directory}/titleAkas_types.csv") == "False" :
     print ("database is missing")
     conformation = input("please press 1 to confirm : ")
     if conformation == "1" :
@@ -121,6 +138,7 @@ if os.path.isfile(f"{full_directory}/titleAkas_types.csv") == False :
         );
         """)
 else :
+
     curr.execute("""
     CREATE TABLE titleAkas_types (
     titleId VARCHAR NOT NULL PRIMARY KEY UNIQUE,
@@ -128,7 +146,8 @@ else :
     );
     """)
 
-if os.path.isfile(f"{full_directory}/titleAkas_isOriginalTitle.csv") == False :
+
+if os.path.isfile(f"{full_directory}/titleAkas_isOriginalTitle.csv") == "False" :
     print ("database is missing")
     conformation = input("please press 1 to confirm : ")
     if conformation == "1" :
@@ -141,6 +160,7 @@ if os.path.isfile(f"{full_directory}/titleAkas_isOriginalTitle.csv") == False :
         );
         """)
 else :
+
     curr.execute("""
     CREATE TABLE titleAkas_isOriginalTitle(
     titleId VARCHAR NOT NULL PRIMARY KEY UNIQUE,
@@ -148,7 +168,8 @@ else :
     );
     """)
 
-if os.path.isfile(f"{full_directory}/titleBasics.csv") == False :
+
+if os.path.isfile(f"{full_directory}/titleBasics.csv") == "False" :
     print ("database is missing")
     conformation = input("please press 1 to confirm : ")
     if conformation == "1" :
@@ -167,6 +188,7 @@ if os.path.isfile(f"{full_directory}/titleBasics.csv") == False :
         );
         """)
 else :
+
     curr.execute("""
     CREATE TABLE titleBasics(
     tconst varchar not null PRIMARY KEY, 
@@ -180,7 +202,7 @@ else :
         ); 
         """)
 
-if os.path.isfile(f"{full_directory}/titleBasics_genres.csv") == False :
+if os.path.isfile(f"{full_directory}/titleBasics_genres.csv") == "False" :
     print ("database is missing")
     conformation = input("please press 1 to confirm : ")
     if conformation == "1" :
@@ -194,6 +216,7 @@ if os.path.isfile(f"{full_directory}/titleBasics_genres.csv") == False :
         ); 
         """)
 else :
+
     curr.execute("""
     CREATE TABLE titleBasics_genres(
     titleBasics_genres_pk INT NOT NULL PRIMARY KEY UNIQUE,
@@ -202,7 +225,8 @@ else :
     );
     """)
 
-if os.path.isfile(f"{full_directory}/titleCrew_directors.csv") == False :
+
+if os.path.isfile(f"{full_directory}/titleCrew_directors.csv") == "False" :
     print ("database is missing")
     conformation = input("please press 1 to confirm : ")
     if conformation == "1" :
@@ -216,6 +240,7 @@ if os.path.isfile(f"{full_directory}/titleCrew_directors.csv") == False :
         );
         """)
 else :
+
     curr.execute("""
     CREATE TABLE titleCrew_directors (
     titleCrew_directors_pk INT NOT NULL PRIMARY KEY UNIQUE,
@@ -224,7 +249,8 @@ else :
     );
     """)
 
-if os.path.isfile(f"{full_directory}/titleCrew_writers.csv") == False :
+
+if os.path.isfile(f"{full_directory}/titleCrew_writers.csv") == "False" :
     print ("database is missing")
     conformation = input("please press 1 to confirm : ")
     if conformation == "1" :
@@ -239,6 +265,7 @@ if os.path.isfile(f"{full_directory}/titleCrew_writers.csv") == False :
     
         """)
 else :
+
     curr.execute("""
     CREATE TABLE titleCrew_writers(
     titleCrew_writers_pk INT NOT NULL PRIMARY KEY UNIQUE,
@@ -247,7 +274,7 @@ else :
     );
 
     """)
-if os.path.isfile(f"{full_directory}/titleRatings.csv") == False :
+if os.path.isfile(f"{full_directory}/titleRatings.csv") == "False" :
     print ("database is missing")
     conformation = input("please press 1 to confirm : ")
     if conformation == "1" :
@@ -261,6 +288,7 @@ if os.path.isfile(f"{full_directory}/titleRatings.csv") == False :
         );
         """)
 else :
+
     curr.execute("""
     Create table titleRatings( 
     tconst varchar PRIMARY KEY, 
@@ -269,7 +297,8 @@ else :
     );
     """)
 
-if os.path.isfile(f"{full_directory}/nameBasics_general.csv") == False :
+
+if os.path.isfile(f"{full_directory}/nameBasics_general.csv") == "False" :
     print ("database is missing")
     conformation = input("please press 1 to confirm : ")
     if conformation == "1" :
@@ -284,6 +313,7 @@ if os.path.isfile(f"{full_directory}/nameBasics_general.csv") == False :
         );
         """)
 else :
+
     curr.execute("""
     CREATE TABLE nameBasics_general(
     nconst VARCHAR NOT NULL PRIMARY KEY UNIQUE,
@@ -292,7 +322,7 @@ else :
     deathYear VARCHAR
     ); 
     """)
-if os.path.isfile(f"{full_directory}/nameBasics_primaryProfession.csv") == False :
+if os.path.isfile(f"{full_directory}/nameBasics_primaryProfession.csv") == "False" :
     print ("database is missing")
     conformation = input("please press 1 to confirm : ")
     if conformation == "1" :
@@ -306,6 +336,7 @@ if os.path.isfile(f"{full_directory}/nameBasics_primaryProfession.csv") == False
         );
         """)
 else :
+
     curr.execute("""
     CREATE TABLE nameBasics_primaryProfession(
     nameBasics_primaryProfession_pk INT NOT NULL PRIMARY KEY UNIQUE,
@@ -314,7 +345,9 @@ else :
     );
     """)
     
-if os.path.isfile(f"{full_directory}/nameBasics_knownForTitles.csv") == False :
+
+
+if os.path.isfile(f"{full_directory}/nameBasics_knownForTitles.csv") == "False" :
     print ("database is missing")
     conformation = input("please press 1 to confirm : ")
     if conformation == "1" :
@@ -328,6 +361,7 @@ if os.path.isfile(f"{full_directory}/nameBasics_knownForTitles.csv") == False :
         ); 
         """)
 else :
+
     curr.execute("""
     CREATE TABLE nameBasics_knownForTitles(
     nameBasics_knownForTitles_pk INT NOT NULL PRIMARY KEY UNIQUE,
@@ -336,7 +370,9 @@ else :
     );
     """)
     
-if os.path.isfile(f"{full_directory}/titlePrincipals_general.csv") == False :
+
+
+if os.path.isfile(f"{full_directory}/titlePrincipals_general.csv") == "False" :
     print ("database is missing")
     conformation = input("please press 1 to confirm : ")
     if conformation == "1" :
@@ -351,6 +387,7 @@ if os.path.isfile(f"{full_directory}/titlePrincipals_general.csv") == False :
         );
         """)
 else :
+
     curr.execute("""
     CREATE TABLE titlePrincipals_general(
     titlePrincipals_general_pk INT NOT NULL PRIMARY KEY UNIQUE,
@@ -360,7 +397,8 @@ else :
     );
     """)
 
-if os.path.isfile(f"{full_directory}/titlePrincipals_job.csv") == False :
+
+if os.path.isfile(f"{full_directory}/titlePrincipals_job.csv") == "False" :
     print ("database is missing")
     conformation = input("please press 1 to confirm : ")
     if conformation == "1" :
@@ -374,6 +412,7 @@ if os.path.isfile(f"{full_directory}/titlePrincipals_job.csv") == False :
         );
         """)
 else :
+
     curr.execute("""
     CREATE TABLE titlePrincipals_job(
     titlePrincipals_job_pk INT NOT NULL PRIMARY KEY UNIQUE,
@@ -382,7 +421,8 @@ else :
     );
     """)
 
-if os.path.isfile(f"{full_directory}/titlePrincipals_characters.csv") == False :
+
+if os.path.isfile(f"{full_directory}/titlePrincipals_characters.csv") == "False" :
     print ("database is missing")
     conformation = input("please press 1 to confirm : ")
     if conformation == "1" :
@@ -396,6 +436,7 @@ if os.path.isfile(f"{full_directory}/titlePrincipals_characters.csv") == False :
         );
         """)
 else :
+
     curr.execute("""
     CREATE TABLE titlePrincipals_characters(
     titlePrincipals_characters_pk INT NOT NULL PRIMARY KEY UNIQUE,
@@ -404,7 +445,11 @@ else :
     );
     """)
 
+
 """---------making the initial databses(2nf)---------"""
+toast1.set_audio(audio.Default , loop=False)
+
+toast1.show()
 
 curr.execute (f"""
 copy titleEpisode 
@@ -413,15 +458,25 @@ DELIMITER E','
 CSV HEADER;
 
 """)
-print ("database uploaded into sql")
+
+
+toast1.set_audio(audio.Default , loop=False)
+
+toast1.show()
+
 curr.execute (f"""
-copy titleAkas_region_and_languages 
-FROM '{full_directory}/titleAkas_region_and_languages.csv' 
+copy Akas_region_and_languages 
+FROM '{full_directory}/Akas_region_and_languages.csv' 
 DELIMITER E',' 
 CSV HEADER;
 
 """)
-print ("database uploaded into sql")
+
+
+toast1.set_audio(audio.Default , loop=False)
+
+toast1.show()
+
 curr.execute (f"""
 copy titleAkas_types 
 FROM '{full_directory}/titleAkas_types.csv' 
@@ -429,7 +484,12 @@ DELIMITER E','
 CSV HEADER;
 
 """)
-print ("database uploaded into sql")
+
+
+toast1.set_audio(audio.Default , loop=False)
+
+toast1.show()
+
 curr.execute (f"""
 copy titleAkas_attributes 
 FROM '{full_directory}/titleAkas_attributes.csv' 
@@ -437,7 +497,12 @@ DELIMITER E','
 CSV HEADER;
 
 """)
-print ("database uploaded into sql")
+
+
+toast1.set_audio(audio.Default , loop=False)
+
+toast1.show()
+
 curr.execute (f"""
 copy titleAkas_isOriginalTitle 
 FROM '{full_directory}/titleAkas_isOriginalTitle.csv' 
@@ -445,7 +510,12 @@ DELIMITER E','
 CSV HEADER;
 
 """)
-print ("database uploaded into sql")
+
+
+toast1.set_audio(audio.Default , loop=False)
+
+toast1.show()
+
 curr.execute (f"""
 copy titleBasics_cleanup  
 FROM '{full_directory}/titleBasics_cleanup .csv' 
@@ -453,7 +523,12 @@ DELIMITER E','
 CSV HEADER;
 
 """)
-print ("database uploaded into sql")
+
+
+toast1.set_audio(audio.Default , loop=False)
+
+toast1.show()
+
 curr.execute (f"""
 copy titleBasics_genres
 FROM '{full_directory}/titleBasics_genres.csv' 
@@ -461,7 +536,12 @@ DELIMITER E','
 CSV HEADER;
 
 """)
-print ("database uploaded into sql")
+
+
+toast1.set_audio(audio.Default , loop=False)
+
+toast1.show()
+
 curr.execute (f"""
 copy titleCrew_directors
 FROM '{full_directory}/titleCrew_directors.csv' 
@@ -469,7 +549,12 @@ DELIMITER E','
 CSV HEADER;
 
 """)
-print ("database uploaded into sql")
+
+
+toast1.set_audio(audio.Default , loop=False)
+
+toast1.show()
+
 curr.execute (f"""
 copy titleCrew_writers 
 FROM '{full_directory}/titleCrew_writers.csv' 
@@ -477,7 +562,12 @@ DELIMITER E','
 CSV HEADER;
 
 """)
-print ("database uploaded into sql")
+
+
+toast1.set_audio(audio.Default , loop=False)
+
+toast1.show()
+
 curr.execute (f"""
 copy titleRatings
 FROM '{full_directory}/titleRatings.csv' 
@@ -485,7 +575,12 @@ DELIMITER E','
 CSV HEADER;
 
 """)
-print ("database uploaded into sql")
+
+
+toast1.set_audio(audio.Default , loop=False)
+
+toast1.show()
+
 curr.execute (f"""
 copy nameBasics_general 
 FROM '{full_directory}/nameBasics_general.csv' 
@@ -493,7 +588,12 @@ DELIMITER E','
 CSV HEADER;
 
 """)
-print ("database uploaded into sql")
+
+
+toast1.set_audio(audio.Default , loop=False)
+
+toast1.show()
+
 curr.execute (f"""
 copy nameBasics_primaryProfession 
 FROM '{full_directory}/nameBasics_primaryProfession.csv' 
@@ -501,7 +601,12 @@ DELIMITER E','
 CSV HEADER;
 
 """)
-print ("database uploaded into sql")
+
+
+toast1.set_audio(audio.Default , loop=False)
+
+toast1.show()
+
 curr.execute (f"""
 copy nameBasics_knownForTitles 
 FROM '{full_directory}/nameBasics_knownForTitles.csv' 
@@ -509,7 +614,12 @@ DELIMITER E','
 CSV HEADER;
 
 """)
-print ("database uploaded into sql")
+
+
+toast1.set_audio(audio.Default , loop=False)
+
+toast1.show()
+
 curr.execute (f"""
 copy titlePrincipals_general 
 FROM '{full_directory}/titlePrincipals_general.csv' 
@@ -517,7 +627,12 @@ DELIMITER E','
 CSV HEADER;
 
 """)
-print ("database uploaded into sql")
+
+
+toast1.set_audio(audio.Default , loop=False)
+
+toast1.show()
+
 curr.execute (f"""
 copy titlePrincipals_job_cleanup 
 FROM '{full_directory}/titlePrincipals_job_cleanup.csv' 
@@ -525,7 +640,12 @@ DELIMITER E','
 CSV HEADER;
 
 """)
-print ("database uploaded into sql")
+
+
+toast1.set_audio(audio.Default , loop=False)
+
+toast1.show()
+
 curr.execute (f"""
 copy titlePrincipals_characters 
 FROM '{full_directory}/titlePrincipals_characters.csv' 
@@ -533,7 +653,11 @@ DELIMITER E','
 CSV HEADER;
 
 """)
-print ("database uploaded into sql")
+
+toast.set_audio(audio.Default , loop=False)
+
+toast.show()
+
 
 conn.commit()
 
