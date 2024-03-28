@@ -479,7 +479,7 @@ toast1.show()
 
 curr.execute (f"""
 copy titleAkas_types 
-FROM '{full_directory}/titleAkas_types.csv' 
+FROM '{full_directory}/akas_types.csv' 
 DELIMITER E',' 
 CSV HEADER;
 
@@ -492,7 +492,7 @@ toast1.show()
 
 curr.execute (f"""
 copy titleAkas_attributes 
-FROM '{full_directory}/titleAkas_attributes.csv' 
+FROM '{full_directory}/akas_attributes.csv' 
 DELIMITER E',' 
 CSV HEADER;
 
@@ -505,7 +505,7 @@ toast1.show()
 
 curr.execute (f"""
 copy titleAkas_isOriginalTitle 
-FROM '{full_directory}/titleAkas_isOriginalTitle.csv' 
+FROM '{full_directory}/Akas_isOriginalTitle.csv' 
 DELIMITER E',' 
 CSV HEADER;
 
