@@ -410,10 +410,12 @@ class from_tsv_to_sql ():
                     dictionary_dict_titlePrincipals_general.append(remade_dictionary)
                     titlePrincipals_general_pk += 1
                 if header == 1 :
-                    header += 1      
-                    chunks.to_csv(f"{directory}/titlePrincipals_general.csv",mode ="a",header=True,encoding='utf-8-sig' , index=True)
+                    header += 1
+                    final_dataframe = pd.DataFrame.from_dict(dictionary_dict_titlePrincipals_general)      
+                    final_dataframe.to_csv(f"{directory}/titlePrincipals_general.csv",mode ="a",header=True,encoding='utf-8-sig' , index=False)
                 else :
-                    chunks.to_csv(f"{directory}/titlePrincipals_general.csv",mode ="a",header=False,encoding='utf-8-sig' , index=True)
+                    final_dataframe = pd.DataFrame.from_dict(dictionary_dict_titlePrincipals_general)
+                    final_dataframe.to_csv(f"{directory}/titlePrincipals_general.csv",mode ="a",header=False,encoding='utf-8-sig' , index=False)
 #  this part normalizes titlePrincipals_job which includes the titlePrincipals_job_pk , tconst , nconst ,  job 
     def titlePrincipals_job_cleanup() :
         directory = f"{directo}/cleaned_up_nf2"
@@ -439,10 +441,12 @@ class from_tsv_to_sql ():
                         dictionary_dict_titlePrincipals_job.append(remade_dictionary)
                         titlePrincipals_job_pk += 1
                 if header == 1 :
-                    header += 1      
-                    chunks.to_csv(f"{directory}/titlePrincipals_job.csv",mode ="a",header=True,encoding='utf-8-sig' , index=True)
+                    header += 1
+                    final_dataframe = pd.DataFrame.from_dict(dictionary_dict_titlePrincipals_job)      
+                    final_dataframe.to_csv(f"{directory}/titlePrincipals_job.csv",mode ="a",header=True,encoding='utf-8-sig' , index=False)
                 else :
-                    chunks.to_csv(f"{directory}/titlePrincipals_job.csv",mode ="a",header=False,encoding='utf-8-sig' , index=True)
+                    final_dataframe = pd.DataFrame.from_dict(dictionary_dict_titlePrincipals_job)
+                    final_dataframe.to_csv(f"{directory}/titlePrincipals_job.csv",mode ="a",header=False,encoding='utf-8-sig' , index=False)
 #  this part normalizes titlePrincipals_characters which includes the titlePrincipals_characters_pk , tconst , nconst ,  characters_ 
     def titlePrincipals_characters_cleanup() :
         directory = f"{directo}/cleaned_up_nf2"
@@ -468,10 +472,12 @@ class from_tsv_to_sql ():
                         dictionary_dict_titlePrincipals_characters.append(remade_dictionary)
                         titlePrincipals_characters_pk += 1
                 if header == 1 :
-                    header += 1      
-                    chunks.to_csv(f"{directory}/titlePrincipals_characters.csv",mode ="a",header=True,encoding='utf-8-sig' , index=True)
+                    header += 1
+                    final_dataframe = pd.DataFrame.from_dict(dictionary_dict_titlePrincipals_characters)      
+                    final_dataframe.to_csv(f"{directory}/titlePrincipals_characters.csv",mode ="a",header=True,encoding='utf-8-sig' , index=False)
                 else :
-                    chunks.to_csv(f"{directory}/titlePrincipals_characters.csv",mode ="a",header=False,encoding='utf-8-sig' , index=True)
+                    final_dataframe = pd.DataFrame.from_dict(dictionary_dict_titlePrincipals_characters)
+                    final_dataframe.to_csv(f"{directory}/titlePrincipals_characters.csv",mode ="a",header=False,encoding='utf-8-sig' , index=False)
 """⠛⠋⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⣻⣩⣉⠉⠉
 ⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⢀⣀⣀⣀⣀⣀⣀⡀⠄⠄⠉⠉⠄⠄⠄
 ⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣠⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣤⠄⠄⠄⠄
@@ -544,12 +550,10 @@ class file_normalization () :
                 print (f"titlePrincipals_general is done \n ----------------------------- ")
                 from_tsv_to_sql.titlePrincipals_job_cleanup()
                 print (f"titlePrincipals_job is done \n ----------------------------- ")
-
+                from_tsv_to_sql.titlePrincipals_characters_cleanup()
                 print (f"7th database is done \n ----------------------------- ")
                 break
             if menu == "2" :
                 break
             else :
                 print ("option not available ")
-
-# to be used for later :p 
